@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoPortal", "VideoPortal\VideoPortal.csproj", "{F8A8C59C-E1ED-4EBB-B83D-BE53AFDE2CAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8A8C59C-E1ED-4EBB-B83D-BE53AFDE2CAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8A8C59C-E1ED-4EBB-B83D-BE53AFDE2CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8A8C59C-E1ED-4EBB-B83D-BE53AFDE2CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8A8C59C-E1ED-4EBB-B83D-BE53AFDE2CAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05A58AA7-FEB2-4392-B081-DD5ABBA6D48C}
+	EndGlobalSection
+EndGlobal
