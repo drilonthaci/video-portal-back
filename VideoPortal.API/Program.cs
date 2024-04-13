@@ -1,6 +1,8 @@
 
 using Microsoft.EntityFrameworkCore;
 using VideoPortal.API.Data;
+using VideoPortal.API.Repositories.Implementation;
+using VideoPortal.API.Repositories.Interface;
 
 namespace VideoPortal.API
 {
@@ -18,8 +20,10 @@ namespace VideoPortal.API
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-        builder.Configuration.GetConnectionString("VideoPortalConnectionString")
-));
+                builder.Configuration.GetConnectionString("VideoPortalConnectionString")
+            ));
+
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 
             var app = builder.Build();
