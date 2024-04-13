@@ -43,5 +43,49 @@ namespace VideoPortal.API.Controllers
             return Ok(response);
 
         }
+
+
+        // GET: /api/Categories
+        [HttpGet]
+        public async Task<IActionResult> GetAllCategories()
+        {
+            var categories = await categoryRepository.GetAllAsync();
+
+            //Domain model to DTO
+
+            var response = new List<CategoryDto>();
+            foreach (var category in categories)
+            {
+                response.Add(new CategoryDto
+                {
+                    Id = category.Id,
+                    Name = category.Name
+                });
+            }
+
+            return Ok(response);
+        }
+
+
+        //GET: /categories/{id}
+        [HttpGet]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> GetCategoryById([FromRoute] Guid id)
+        {
+            var retrievedCategory = await categoryRepository.GetById(id);
+
+            if (retrievedCategory is null)
+            {
+                return NotFound();
+            }
+
+            var response = new CategoryDto
+            {
+                Id = retrievedCategory.Id,
+                Name = retrievedCategory.Name,
+            };
+
+            return Ok(response);
+        }
     }
 }

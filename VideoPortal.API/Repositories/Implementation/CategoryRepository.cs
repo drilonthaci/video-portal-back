@@ -1,4 +1,5 @@
-﻿using VideoPortal.API.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using VideoPortal.API.Data;
 using VideoPortal.API.Models;
 using VideoPortal.API.Repositories.Interface;
 
@@ -22,6 +23,16 @@ namespace VideoPortal.API.Repositories.Implementation
 
             return category;
         
+        }
+
+        public async Task<IEnumerable<Category>> GetAllAsync()
+        {
+            return await dbContext.Categories.ToListAsync();
+        }
+
+        public async Task<Category?> GetById(Guid id)
+        {
+            return await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }
