@@ -21,7 +21,7 @@ namespace VideoPortal.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory([FromBody] CategoryCreationDto request)
+        public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequestDto request)
         {
 
 
@@ -34,7 +34,7 @@ namespace VideoPortal.API.Controllers
             await categoryRepository.CreateAsync(category);
 
             // Model to DTO
-            var response = new CategoryDto
+            var response = new CreateCategoryResponseDto
             {
                 Id = category.Id,
                 Name = category.Name
@@ -53,10 +53,10 @@ namespace VideoPortal.API.Controllers
 
             //Domain model to DTO
 
-            var response = new List<CategoryDto>();
+            var response = new List<CreateCategoryResponseDto>();
             foreach (var category in categories)
             {
-                response.Add(new CategoryDto
+                response.Add(new CreateCategoryResponseDto
                 {
                     Id = category.Id,
                     Name = category.Name
@@ -79,7 +79,7 @@ namespace VideoPortal.API.Controllers
                 return NotFound();
             }
 
-            var response = new CategoryDto
+            var response = new CreateCategoryResponseDto
             {
                 Id = retrievedCategory.Id,
                 Name = retrievedCategory.Name,
@@ -87,5 +87,60 @@ namespace VideoPortal.API.Controllers
 
             return Ok(response);
         }
+
+
+
+        // PUT: categories/{id}
+        [HttpPut]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> EditCategory([FromRoute] Guid id, UpdateCategoryRequestDto request)
+        {
+            // DTO to Domain Model
+            var category = new Category
+            {
+                Id = id,
+                Name = request.Name
+            };
+
+            category = await categoryRepository.UpdateAsync(category);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            // Domain model to DTO
+            var response = new CreateCategoryResponseDto
+            {
+                Id = category.Id,
+                Name = category.Name
+            };
+
+            return Ok(response);
+        }
+
+
+        // DELETE: categories/{id}
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
+        {
+            var category = await categoryRepository.DeleteAsync(id);
+
+            if (category is null)
+            {
+                return NotFound();
+            }
+
+            // Domain model to DTO
+            var response = new CreateCategoryResponseDto
+            {
+                Id = category.Id,
+                Name = category.Name
+            };
+
+            return Ok(response);
+        }
+
     }
 }

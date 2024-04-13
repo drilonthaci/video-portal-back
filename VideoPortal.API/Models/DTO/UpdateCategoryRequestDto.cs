@@ -1,8 +1,7 @@
 ﻿namespace VideoPortal.API.Models.DTO
 {
-    public class CategoryDto
+    public class UpdateCategoryRequestDto
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
     }
 }

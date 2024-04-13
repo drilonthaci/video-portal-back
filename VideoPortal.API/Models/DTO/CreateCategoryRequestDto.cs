@@ -1,6 +1,6 @@
 ﻿namespace VideoPortal.API.Models.Dto
 {
-    public class CategoryCreationDto
+    public class CreateCategoryRequestDto
     {
         public string Name { get; set; }
 
