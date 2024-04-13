@@ -1,4 +1,4 @@
-namespace VideoPortal
+namespace VideoPortal.API
 {
     public class WeatherForecast
     {

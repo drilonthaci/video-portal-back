@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace VideoPortal.Controllers
+namespace VideoPortal.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
