@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VideoPortal.API.Models;
 using VideoPortal.API.Models.DTO;
+using VideoPortal.API.Repositories.Implementation;
 using VideoPortal.API.Repositories.Interface;
 
 namespace VideoPortal.API.Controllers
@@ -52,6 +53,34 @@ namespace VideoPortal.API.Controllers
                 ShortDescription = videoPost.ShortDescription,
                 Title = videoPost.Title,
             };
+
+            return Ok(response);
+        }
+
+
+
+        // GET: /api/blogposts
+        [HttpGet]
+        public async Task<IActionResult> GetAllVideoPosts()
+        {
+            var blogPosts = await videoPostRepository.GetAllAsync();
+
+            // Domain model to DTO
+            var response = new List<CreateVideoPostResponseDto>();
+            foreach (var blogPost in blogPosts)
+            {
+                response.Add(new CreateVideoPostResponseDto
+                {
+                    Id = blogPost.Id,
+                    Publisher = blogPost.Publisher,
+                    Content = blogPost.Content,
+                    ImageUrl = blogPost.ImageUrl,
+                    IsVisible = blogPost.IsVisible,
+                    PublishedDate = blogPost.PublishedDate,
+                    ShortDescription = blogPost.ShortDescription,
+                    Title = blogPost.Title,
+                });
+            }
 
             return Ok(response);
         }

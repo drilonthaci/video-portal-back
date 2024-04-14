@@ -1,4 +1,5 @@
-﻿using VideoPortal.API.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using VideoPortal.API.Data;
 using VideoPortal.API.Models;
 using VideoPortal.API.Repositories.Interface;
 
@@ -19,6 +20,12 @@ namespace VideoPortal.API.Repositories.Implementation
             await dbContext.VideoPosts.AddAsync(videoPost);
             await dbContext.SaveChangesAsync();
             return videoPost;
+        }
+
+
+        public async Task<IEnumerable<VideoPost>> GetAllAsync()
+        {
+            return await dbContext.VideoPosts.ToListAsync();
         }
     }
 }
