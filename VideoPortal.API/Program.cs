@@ -24,6 +24,7 @@ namespace VideoPortal.API
             ));
 
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IVideoPostRepository, VideoPostRepository>();
 
 
             var app = builder.Build();
