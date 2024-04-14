@@ -59,26 +59,26 @@ namespace VideoPortal.API.Controllers
 
 
 
-        // GET: /api/blogposts
+        // GET: /api/videoposts
         [HttpGet]
         public async Task<IActionResult> GetAllVideoPosts()
         {
-            var blogPosts = await videoPostRepository.GetAllAsync();
+            var videoPosts = await videoPostRepository.GetAllAsync();
 
             // Domain model to DTO
             var response = new List<CreateVideoPostResponseDto>();
-            foreach (var blogPost in blogPosts)
+            foreach (var videoPost in videoPosts)
             {
                 response.Add(new CreateVideoPostResponseDto
                 {
-                    Id = blogPost.Id,
-                    Publisher = blogPost.Publisher,
-                    Content = blogPost.Content,
-                    ImageUrl = blogPost.ImageUrl,
-                    IsVisible = blogPost.IsVisible,
-                    PublishedDate = blogPost.PublishedDate,
-                    ShortDescription = blogPost.ShortDescription,
-                    Title = blogPost.Title,
+                    Id = videoPost.Id,
+                    Publisher = videoPost.Publisher,
+                    Content = videoPost.Content,
+                    ImageUrl = videoPost.ImageUrl,
+                    IsVisible = videoPost.IsVisible,
+                    PublishedDate = videoPost.PublishedDate,
+                    ShortDescription = videoPost.ShortDescription,
+                    Title = videoPost.Title,
                 });
             }
 
