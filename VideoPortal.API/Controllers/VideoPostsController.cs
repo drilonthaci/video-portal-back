@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using VideoPortal.API.Models;
 using VideoPortal.API.Models.DTO;
-using VideoPortal.API.Repositories.Implementation;
 using VideoPortal.API.Repositories.Interface;
 
 namespace VideoPortal.API.Controllers
@@ -13,10 +11,12 @@ namespace VideoPortal.API.Controllers
     {
 
         private readonly IVideoPostRepository videoPostRepository;
+        private readonly ICategoryRepository categoryRepository;
 
-        public VideoPostsController(IVideoPostRepository videoPostRepository)
+        public VideoPostsController(IVideoPostRepository videoPostRepository, ICategoryRepository categoryRepository)
         {
             this.videoPostRepository = videoPostRepository;
+            this.categoryRepository = categoryRepository;
         }
 
 
@@ -34,11 +34,17 @@ namespace VideoPortal.API.Controllers
                 PublishedDate = request.PublishedDate,
                 Publisher = request.Publisher,
                 IsVisible = request.IsVisible,
-
-
-     
-               
+                Categories = new List<Category>()
             };
+
+            foreach (var categoryId in request.Categories)
+            {
+                var retreivedCategory = await categoryRepository.GetById(categoryId);
+                if (retreivedCategory is not null)
+                {
+                    videoPost.Categories.Add(retreivedCategory);
+                }
+            }
 
             videoPost = await videoPostRepository.CreateAsync(videoPost);
 
@@ -52,7 +58,14 @@ namespace VideoPortal.API.Controllers
                 PublishedDate = videoPost.PublishedDate,
                 ShortDescription = videoPost.ShortDescription,
                 Title = videoPost.Title,
-            };
+                Categories = videoPost.Categories.Select(x => new CreateCategoryResponseDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ShortDescription = x.ShortDescription,
+                    ImageUrl = x.ImageUrl,
+                }).ToList()
+        };
 
             return Ok(response);
         }
@@ -79,10 +92,56 @@ namespace VideoPortal.API.Controllers
                     PublishedDate = videoPost.PublishedDate,
                     ShortDescription = videoPost.ShortDescription,
                     Title = videoPost.Title,
+                    Categories = videoPost.Categories.Select(x => new CreateCategoryResponseDto
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        ShortDescription = x.ShortDescription,
+                        ImageUrl = x.ImageUrl,
+                    }).ToList()
                 });
             }
 
             return Ok(response);
         }
+
+
+
+
+        // GET: /api/videoposts/{id}
+        [HttpGet]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> GetVideoPostById([FromRoute] Guid id)
+        {
+            var videoPost = await videoPostRepository.GetByIdAsync(id);
+
+            if (videoPost is null)
+            {
+                return NotFound();
+            }
+
+            // Domain Model to DTO
+            var response = new CreateVideoPostResponseDto
+            {
+                Id = videoPost.Id,
+                Publisher = videoPost.Publisher,
+                Content = videoPost.Content,
+                ImageUrl = videoPost.ImageUrl,
+                IsVisible = videoPost.IsVisible,
+                PublishedDate = videoPost.PublishedDate,
+                ShortDescription = videoPost.ShortDescription,
+                Title = videoPost.Title,
+                Categories = videoPost.Categories.Select(x => new CreateCategoryResponseDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ShortDescription = x.ShortDescription,
+                    ImageUrl = x.ImageUrl,
+                }).ToList()
+            };
+
+            return Ok(response);
+        }
+
     }
 }

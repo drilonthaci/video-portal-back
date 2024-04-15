@@ -10,5 +10,7 @@
         public DateTime PublishedDate { get; set; }
         public string Publisher { get; set; }
         public bool IsVisible { get; set; }
+
+        public List<CreateCategoryResponseDto> Categories { get; set; } = new List<CreateCategoryResponseDto>();
     }
 }

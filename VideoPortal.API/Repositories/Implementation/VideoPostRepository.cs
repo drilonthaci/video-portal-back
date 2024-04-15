@@ -22,10 +22,14 @@ namespace VideoPortal.API.Repositories.Implementation
             return videoPost;
         }
 
-
         public async Task<IEnumerable<VideoPost>> GetAllAsync()
         {
-            return await dbContext.VideoPosts.ToListAsync();
+            return await dbContext.VideoPosts.Include(x => x.Categories).ToListAsync();
+        }
+
+        public async Task<VideoPost?> GetByIdAsync(Guid id)
+        {
+            return await dbContext.VideoPosts.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VideoPortal.API.Data;
 using VideoPortal.API.Models;
@@ -28,7 +29,9 @@ namespace VideoPortal.API.Controllers
            // Map CreateCategoryRequestDto to Category model
             var category = new Category
             {
-                Name = request.Name
+                Name = request.Name,
+                ShortDescription = request.ShortDescription,
+                ImageUrl = request.ImageUrl
             };
 
             await categoryRepository.CreateAsync(category);
@@ -37,7 +40,9 @@ namespace VideoPortal.API.Controllers
             var response = new CreateCategoryResponseDto
             {
                 Id = category.Id,
-                Name = category.Name
+                Name = category.Name,
+                ShortDescription = category.ShortDescription,
+                ImageUrl = category.ImageUrl
             };
 
             return Ok(response);
@@ -59,7 +64,9 @@ namespace VideoPortal.API.Controllers
                 response.Add(new CreateCategoryResponseDto
                 {
                     Id = category.Id,
-                    Name = category.Name
+                    Name = category.Name,
+                    ShortDescription = category.ShortDescription,
+                    ImageUrl = category.ImageUrl
                 });
             }
 
@@ -83,6 +90,8 @@ namespace VideoPortal.API.Controllers
             {
                 Id = retrievedCategory.Id,
                 Name = retrievedCategory.Name,
+                ShortDescription = retrievedCategory.ShortDescription,
+                ImageUrl = retrievedCategory.ImageUrl
             };
 
             return Ok(response);
@@ -99,7 +108,9 @@ namespace VideoPortal.API.Controllers
             var category = new Category
             {
                 Id = id,
-                Name = request.Name
+                Name = request.Name,
+                ShortDescription = request.ShortDescription,
+                ImageUrl = request.ImageUrl
             };
 
             category = await categoryRepository.UpdateAsync(category);
@@ -113,7 +124,9 @@ namespace VideoPortal.API.Controllers
             var response = new CreateCategoryResponseDto
             {
                 Id = category.Id,
-                Name = category.Name
+                Name = category.Name,
+                ShortDescription = category.ShortDescription,
+                ImageUrl = category.ImageUrl
             };
 
             return Ok(response);
@@ -136,7 +149,9 @@ namespace VideoPortal.API.Controllers
             var response = new CreateCategoryResponseDto
             {
                 Id = category.Id,
-                Name = category.Name
+                Name = category.Name,
+                ShortDescription = category.ShortDescription,
+                ImageUrl = category.ImageUrl
             };
 
             return Ok(response);

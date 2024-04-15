@@ -9,5 +9,7 @@
         public DateTime PublishedDate { get; set; }
         public string Publisher { get; set; }
         public bool IsVisible { get; set; }
+
+        public Guid[] Categories { get; set; }
     }
 }
