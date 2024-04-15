@@ -22,6 +22,7 @@ namespace VideoPortal.API.Repositories.Implementation
             return videoPost;
         }
 
+
         public async Task<IEnumerable<VideoPost>> GetAllAsync()
         {
             return await dbContext.VideoPosts.Include(x => x.Categories).ToListAsync();
@@ -30,6 +31,43 @@ namespace VideoPortal.API.Repositories.Implementation
         public async Task<VideoPost?> GetByIdAsync(Guid id)
         {
             return await dbContext.VideoPosts.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+
+        public async Task<VideoPost?> UpdateAsync(VideoPost videoPost)
+        {
+            var retreivedVideoPost = await dbContext.VideoPosts.Include(x => x.Categories)
+                .FirstOrDefaultAsync(x => x.Id == videoPost.Id);
+
+            if (retreivedVideoPost == null)
+            {
+                return null;
+            }
+
+            // Update VideoPost
+            dbContext.Entry(retreivedVideoPost).CurrentValues.SetValues(videoPost);
+
+            // Update Categories
+            retreivedVideoPost.Categories = videoPost.Categories;
+
+            await dbContext.SaveChangesAsync();
+
+            return videoPost;
+        }
+
+
+        public async Task<VideoPost?> DeleteAsync(Guid id)
+        {
+            var retreivedVideoPost = await dbContext.VideoPosts.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (retreivedVideoPost != null)
+            {
+                dbContext.VideoPosts.Remove(retreivedVideoPost);
+                await dbContext.SaveChangesAsync();
+                return retreivedVideoPost;
+            }
+
+            return null;
         }
     }
 }
