@@ -1,7 +1,10 @@
 ﻿using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using VideoPortal.API.Models;
+using VideoPortal.API.Models.Domain;
 using VideoPortal.API.Models.DTO;
+using VideoPortal.API.Models.DTO.Category;
+using VideoPortal.API.Models.DTO.VideoPost;
 using VideoPortal.API.Repositories.Interface;
 
 namespace VideoPortal.API.Controllers
@@ -32,6 +35,7 @@ namespace VideoPortal.API.Controllers
                 ShortDescription = request.ShortDescription,
                 Content = request.Content,
                 ImageUrl = request.ImageUrl,
+                VideoUrl = request.VideoUrl,
                 PublishedDate = request.PublishedDate,
                 Publisher = request.Publisher,
                 IsVisible = request.IsVisible,
@@ -56,6 +60,7 @@ namespace VideoPortal.API.Controllers
                 ShortDescription = videoPost.ShortDescription,
                 Content = videoPost.Content,
                 ImageUrl = videoPost.ImageUrl,
+                VideoUrl = videoPost.VideoUrl,
                 PublishedDate = videoPost.PublishedDate,
                 Publisher = videoPost.Publisher,
                 IsVisible = videoPost.IsVisible,
@@ -129,6 +134,7 @@ namespace VideoPortal.API.Controllers
                 ShortDescription = videoPost.ShortDescription,
                 Content = videoPost.Content,
                 ImageUrl = videoPost.ImageUrl,
+                VideoUrl = videoPost.VideoUrl,
                 PublishedDate = videoPost.PublishedDate,
                 Publisher = videoPost.Publisher,
                 IsVisible = videoPost.IsVisible,
@@ -160,6 +166,7 @@ namespace VideoPortal.API.Controllers
                 ShortDescription = request.ShortDescription,
                 Content = request.Content,
                 ImageUrl = request.ImageUrl,
+                VideoUrl = request.VideoUrl,
                 PublishedDate = request.PublishedDate,
                 Publisher = request.Publisher,
                 IsVisible = request.IsVisible,
@@ -190,6 +197,7 @@ namespace VideoPortal.API.Controllers
                 ShortDescription = videoPost.ShortDescription,
                 Content = videoPost.Content,
                 ImageUrl = videoPost.ImageUrl,
+                VideoUrl = videoPost.VideoUrl,
                 PublishedDate = videoPost.PublishedDate,
                 Publisher = videoPost.Publisher,
                 IsVisible = videoPost.IsVisible,
@@ -226,6 +234,7 @@ namespace VideoPortal.API.Controllers
                 ShortDescription = deletedVideoPost.ShortDescription,
                 Content = deletedVideoPost.Content,
                 ImageUrl = deletedVideoPost.ImageUrl,
+                VideoUrl = deletedVideoPost.VideoUrl,
                 PublishedDate = deletedVideoPost.PublishedDate,
                 Publisher = deletedVideoPost.Publisher,
                 IsVisible = deletedVideoPost.IsVisible,

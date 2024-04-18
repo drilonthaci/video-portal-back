@@ -12,8 +12,8 @@ using VideoPortal.API.Data;
 namespace VideoPortal.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240414213339_Add Relationships between Video Post and Category")]
-    partial class AddRelationshipsbetweenVideoPostandCategory
+    [Migration("20240417235554_Initial migration")]
+    partial class Initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,13 +40,21 @@ namespace VideoPortal.API.Migrations
                     b.ToTable("CategoryVideoPost");
                 });
 
-            modelBuilder.Entity("VideoPortal.API.Models.Category", b =>
+            modelBuilder.Entity("VideoPortal.API.Models.Domain.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -55,7 +63,7 @@ namespace VideoPortal.API.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("VideoPortal.API.Models.VideoPost", b =>
+            modelBuilder.Entity("VideoPortal.API.Models.Domain.VideoPost", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,6 +95,10 @@ namespace VideoPortal.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("VideoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("VideoPosts");
@@ -94,13 +106,13 @@ namespace VideoPortal.API.Migrations
 
             modelBuilder.Entity("CategoryVideoPost", b =>
                 {
-                    b.HasOne("VideoPortal.API.Models.Category", null)
+                    b.HasOne("VideoPortal.API.Models.Domain.Category", null)
                         .WithMany()
                         .HasForeignKey("CategoriesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VideoPortal.API.Models.VideoPost", null)
+                    b.HasOne("VideoPortal.API.Models.Domain.VideoPost", null)
                         .WithMany()
                         .HasForeignKey("VideoPostsId")
                         .OnDelete(DeleteBehavior.Cascade)

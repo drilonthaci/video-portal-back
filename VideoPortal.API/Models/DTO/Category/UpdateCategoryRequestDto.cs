@@ -1,11 +1,9 @@
-﻿namespace VideoPortal.API.Models.Dto
+﻿namespace VideoPortal.API.Models.DTO.Category
 {
-    public class CreateCategoryRequestDto
+    public class UpdateCategoryRequestDto
     {
         public string Name { get; set; }
         public string ShortDescription { get; set; }
         public string ImageUrl { get; set; }
-
-
     }
 }

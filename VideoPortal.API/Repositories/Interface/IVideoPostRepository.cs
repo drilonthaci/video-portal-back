@@ -1,4 +1,5 @@
 ﻿using VideoPortal.API.Models;
+using VideoPortal.API.Models.Domain;
 
 namespace VideoPortal.API.Repositories.Interface
 {

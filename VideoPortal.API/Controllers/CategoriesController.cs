@@ -1,10 +1,6 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using VideoPortal.API.Data;
-using VideoPortal.API.Models;
-using VideoPortal.API.Models.Dto;
-using VideoPortal.API.Models.DTO;
+﻿using Microsoft.AspNetCore.Mvc;
+using VideoPortal.API.Models.Domain;
+using VideoPortal.API.Models.DTO.Category;
 using VideoPortal.API.Repositories.Interface;
 
 namespace VideoPortal.API.Controllers

@@ -1,12 +1,10 @@
-﻿namespace VideoPortal.API.Models
+﻿namespace VideoPortal.API.Models.DTO.Category
 {
-    public class Category
+    public class CreateCategoryResponseDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string ShortDescription { get; set; }
         public string ImageUrl { get; set; }
-
-        public ICollection<VideoPost> VideoPosts { get; set; }
     }
 }

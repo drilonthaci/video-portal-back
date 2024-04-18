@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VideoPortal.API.Models;
+using VideoPortal.API.Models.Domain;
 
 namespace VideoPortal.API.Data
 {
