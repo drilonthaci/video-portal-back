@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VideoPortal.API.Data.Services.Interface;
 using VideoPortal.API.Models.Domain;
 using VideoPortal.API.Models.DTO.Category;
 using VideoPortal.API.Models.DTO.VideoPost;
+using VideoPortal.API.Services.Interface;
 
 namespace VideoPortal.API.Controllers
 {

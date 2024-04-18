@@ -1,4 +1,5 @@
-﻿using VideoPortal.API.Data.Repositories.Base;
+﻿
+using VideoPortal.API.Data.Repositories.Base;
 
 namespace VideoPortal.API.Models.Domain
 {

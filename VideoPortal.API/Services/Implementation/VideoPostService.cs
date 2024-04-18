@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using VideoPortal.API.Data;
 using VideoPortal.API.Data.Repositories.Base;
 using VideoPortal.API.Data.Repositories.VideoPostRepo;
-using VideoPortal.API.Data.Services.Interface;
 using VideoPortal.API.Models.Domain;
+using VideoPortal.API.Services.Interface;
 
-namespace VideoPortal.API.Data.Services.Implementation
+namespace VideoPortal.API.Services.Implementation
 {
     public class VideoPostService : EntityBaseRepository<VideoPost>, IVideoPostService
     {

@@ -3,9 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using VideoPortal.API.Data;
 using VideoPortal.API.Data.Repositories.CategoryRepo;
 using VideoPortal.API.Data.Repositories.VideoPostRepo;
-using VideoPortal.API.Data.Services;
-using VideoPortal.API.Data.Services.Implementation;
-using VideoPortal.API.Data.Services.Interface;
+using VideoPortal.API.Services.Implementation;
+using VideoPortal.API.Services.Interface;
 
 namespace VideoPortal.API
 {
