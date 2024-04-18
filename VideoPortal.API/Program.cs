@@ -1,5 +1,8 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using VideoPortal.API.Data;
 using VideoPortal.API.Data.Repositories.CategoryRepo;
 using VideoPortal.API.Data.Repositories.VideoPostRepo;
@@ -25,11 +28,52 @@ namespace VideoPortal.API
                 builder.Configuration.GetConnectionString("VideoPortalConnectionString")
             ));
 
+            builder.Services.AddDbContext<AuthDbContext>(options => options.UseSqlServer(
+            builder.Configuration.GetConnectionString("VideoPortalConnectionString")
+         ));
+
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IVideoPostService, VideoPostService>();
 
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IVideoPostRepository, VideoPostRepository>();
+
+
+
+            builder.Services.AddIdentityCore<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("Life")
+                .AddEntityFrameworkStores<AuthDbContext>()
+                .AddDefaultTokenProviders();
+
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+            });
+
+
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        AuthenticationType = "Jwt",
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        ValidAudience = builder.Configuration["Jwt:Audience"],
+                        IssuerSigningKey =
+                        new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                    };
+                });
 
 
             var app = builder.Build();
@@ -50,7 +94,7 @@ namespace VideoPortal.API
                 options.AllowAnyMethod();
             });
 
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
