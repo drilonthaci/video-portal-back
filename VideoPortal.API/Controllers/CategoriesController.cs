@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VideoPortal.API.Data.Services.Implementation;
+using VideoPortal.API.Data.Services.Interface;
 using VideoPortal.API.Models.Domain;
 using VideoPortal.API.Models.DTO.Category;
-using VideoPortal.API.Repositories.Interface;
+using VideoPortal.API.Models.DTO.VideoPost;
 
 namespace VideoPortal.API.Controllers
 {
@@ -9,20 +11,24 @@ namespace VideoPortal.API.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ICategoryRepository categoryRepository;
+        private readonly ICategoryService _service;
 
-        public CategoriesController(ICategoryRepository categoryRepository)
+        public CategoriesController(ICategoryService service)
         {
-            this.categoryRepository = categoryRepository;
+            _service = service;
         }
 
 
+        // POST: api/Categories
         [HttpPost]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequestDto request)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-
-           // Map CreateCategoryRequestDto to Category model
+            // Map CreateCategoryRequestDto to Category model
             var category = new Category
             {
                 Name = request.Name,
@@ -30,7 +36,7 @@ namespace VideoPortal.API.Controllers
                 ImageUrl = request.ImageUrl
             };
 
-            await categoryRepository.CreateAsync(category);
+            await _service.AddAsync(category);
 
             // Model to DTO
             var response = new CreateCategoryResponseDto
@@ -42,18 +48,17 @@ namespace VideoPortal.API.Controllers
             };
 
             return Ok(response);
-
         }
 
 
-        // GET: /api/Categories
+
+        // GET: api/Categories
         [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await categoryRepository.GetAllAsync();
+            var categories = await _service.GetAllAsync();
 
-            //Domain model to DTO
-
+            // Domain model to DTO
             var response = new List<CreateCategoryResponseDto>();
             foreach (var category in categories)
             {
@@ -70,14 +75,15 @@ namespace VideoPortal.API.Controllers
         }
 
 
-        //GET: /categories/{id}
-        [HttpGet]
-        [Route("{id:Guid}")]
+
+
+        // GET: api/categories/{id}
+        [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetCategoryById([FromRoute] Guid id)
         {
-            var retrievedCategory = await categoryRepository.GetById(id);
+            var retrievedCategory = await _service.GetCategoryByIdWithVideoPostsAsync(id);
 
-            if (retrievedCategory is null)
+            if (retrievedCategory == null)
             {
                 return NotFound();
             }
@@ -87,7 +93,13 @@ namespace VideoPortal.API.Controllers
                 Id = retrievedCategory.Id,
                 Name = retrievedCategory.Name,
                 ShortDescription = retrievedCategory.ShortDescription,
-                ImageUrl = retrievedCategory.ImageUrl
+                ImageUrl = retrievedCategory.ImageUrl,
+                VideoPosts = retrievedCategory.VideoPosts.Select(vp => new CreateVideoPostResponseDto
+                {
+                    Id = vp.Id,
+                    Title = vp.Title,
+                    ImageUrl = vp.ImageUrl,
+                }).ToList()
             };
 
             return Ok(response);
@@ -95,28 +107,32 @@ namespace VideoPortal.API.Controllers
 
 
 
-        // PUT: categories/{id}
-        [HttpPut]
-        [Route("{id:Guid}")]
-        public async Task<IActionResult> EditCategory([FromRoute] Guid id, UpdateCategoryRequestDto request)
+
+        // PUT: api/categories/{id}
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> EditCategory([FromRoute] Guid id, [FromBody] UpdateCategoryRequestDto request)
         {
-            // DTO to Domain Model
-            var category = new Category
+            if (!ModelState.IsValid)
             {
-                Id = id,
-                Name = request.Name,
-                ShortDescription = request.ShortDescription,
-                ImageUrl = request.ImageUrl
-            };
+                return BadRequest(ModelState);
+            }
 
-            category = await categoryRepository.UpdateAsync(category);
-
+            // Retrieve the category from the database
+            var category = await _service.GetByIdAsync(id);
             if (category == null)
             {
                 return NotFound();
             }
 
-            // Domain model to DTO
+            // Update category properties with DTO data
+            category.Name = request.Name;
+            category.ShortDescription = request.ShortDescription;
+            category.ImageUrl = request.ImageUrl;
+
+            // Save the updated category
+            await _service.UpdateAsync(category);
+
+            // Model to DTO
             var response = new CreateCategoryResponseDto
             {
                 Id = category.Id,
@@ -129,28 +145,13 @@ namespace VideoPortal.API.Controllers
         }
 
 
-        // DELETE: categories/{id}
-        [HttpDelete]
-        [Route("{id:Guid}")]
+
+        [HttpDelete("{id:Guid}")]
         public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
         {
-            var category = await categoryRepository.DeleteAsync(id);
+            await _service.DeleteAsync(id);
 
-            if (category is null)
-            {
-                return NotFound();
-            }
-
-            // Domain model to DTO
-            var response = new CreateCategoryResponseDto
-            {
-                Id = category.Id,
-                Name = category.Name,
-                ShortDescription = category.ShortDescription,
-                ImageUrl = category.ImageUrl
-            };
-
-            return Ok(response);
+            return Ok();
         }
 
     }

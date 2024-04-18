@@ -1,6 +1,8 @@
-﻿namespace VideoPortal.API.Models.Domain
+﻿using VideoPortal.API.Data.Repositories.Base;
+
+namespace VideoPortal.API.Models.Domain
 {
-    public class VideoPost
+    public class VideoPost : IEntityBase
     {
         public Guid Id { get; set; }
         public string Title { get; set; }

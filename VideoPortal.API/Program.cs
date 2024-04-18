@@ -1,8 +1,11 @@
 
 using Microsoft.EntityFrameworkCore;
 using VideoPortal.API.Data;
-using VideoPortal.API.Repositories.Implementation;
-using VideoPortal.API.Repositories.Interface;
+using VideoPortal.API.Data.Repositories.CategoryRepo;
+using VideoPortal.API.Data.Repositories.VideoPostRepo;
+using VideoPortal.API.Data.Services;
+using VideoPortal.API.Data.Services.Implementation;
+using VideoPortal.API.Data.Services.Interface;
 
 namespace VideoPortal.API
 {
@@ -22,6 +25,9 @@ namespace VideoPortal.API
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
                 builder.Configuration.GetConnectionString("VideoPortalConnectionString")
             ));
+
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IVideoPostService, VideoPostService>();
 
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IVideoPostRepository, VideoPostRepository>();

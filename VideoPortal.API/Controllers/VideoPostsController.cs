@@ -1,11 +1,8 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Mvc;
-using VideoPortal.API.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using VideoPortal.API.Data.Services.Interface;
 using VideoPortal.API.Models.Domain;
-using VideoPortal.API.Models.DTO;
 using VideoPortal.API.Models.DTO.Category;
 using VideoPortal.API.Models.DTO.VideoPost;
-using VideoPortal.API.Repositories.Interface;
 
 namespace VideoPortal.API.Controllers
 {
@@ -14,19 +11,20 @@ namespace VideoPortal.API.Controllers
     public class VideoPostsController : ControllerBase
     {
 
-        private readonly IVideoPostRepository videoPostRepository;
-        private readonly ICategoryRepository categoryRepository;
+        private readonly ICategoryService _categoryService;
+        private readonly IVideoPostService _videoPostService;
 
-        public VideoPostsController(IVideoPostRepository videoPostRepository, ICategoryRepository categoryRepository)
+        public VideoPostsController(ICategoryService categoryService, IVideoPostService videoPostService )
         {
-            this.videoPostRepository = videoPostRepository;
-            this.categoryRepository = categoryRepository;
+            _categoryService = categoryService;
+            _videoPostService = videoPostService;
         }
+
 
 
         // POST: /api/videoposts
         [HttpPost]
-        public async Task<IActionResult> CreateVideoPost([FromBody] CreateVideoPostRequestDto request)
+        public async Task<IActionResult> AddVideoPost([FromBody] CreateVideoPostRequestDto request)
         {
             var videoPost = new VideoPost
             {
@@ -44,14 +42,14 @@ namespace VideoPortal.API.Controllers
 
             foreach (var categoryId in request.Categories)
             {
-                var retreivedCategory = await categoryRepository.GetById(categoryId);
+                var retreivedCategory = await _categoryService.GetByIdAsync(categoryId);
                 if (retreivedCategory is not null)
                 {
                     videoPost.Categories.Add(retreivedCategory);
                 }
             }
 
-            videoPost = await videoPostRepository.CreateAsync(videoPost);
+            await _videoPostService.AddAsync(videoPost);
 
             var response = new CreateVideoPostResponseDto
             {
@@ -71,18 +69,17 @@ namespace VideoPortal.API.Controllers
                     ShortDescription = x.ShortDescription,
                     ImageUrl = x.ImageUrl,
                 }).ToList()
-        };
+            };
 
             return Ok(response);
         }
-
 
 
         // GET: /api/videoposts
         [HttpGet]
         public async Task<IActionResult> GetAllVideoPosts()
         {
-            var videoPosts = await videoPostRepository.GetAllAsync();
+            var videoPosts = await _videoPostService.GetAllAsync();
 
             // Domain model to DTO
             var response = new List<CreateVideoPostResponseDto>();
@@ -95,16 +92,10 @@ namespace VideoPortal.API.Controllers
                     ShortDescription = videoPost.ShortDescription,
                     Content = videoPost.Content,
                     ImageUrl = videoPost.ImageUrl,
+                    VideoUrl = videoPost.VideoUrl,
                     PublishedDate = videoPost.PublishedDate,
                     Publisher = videoPost.Publisher,
                     IsVisible = videoPost.IsVisible,
-                    Categories = videoPost.Categories.Select(x => new CreateCategoryResponseDto
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        ShortDescription = x.ShortDescription,
-                        ImageUrl = x.ImageUrl,
-                    }).ToList()
                 });
             }
 
@@ -114,12 +105,11 @@ namespace VideoPortal.API.Controllers
 
 
 
-        // GET: /api/videoposts/{id}
         [HttpGet]
         [Route("{id:Guid}")]
         public async Task<IActionResult> GetVideoPostById([FromRoute] Guid id)
         {
-            var videoPost = await videoPostRepository.GetByIdAsync(id);
+            var videoPost = await _videoPostService.GetVideoPostByIdWithCategoriesAsync(id);
 
             if (videoPost is null)
             {
@@ -138,17 +128,16 @@ namespace VideoPortal.API.Controllers
                 PublishedDate = videoPost.PublishedDate,
                 Publisher = videoPost.Publisher,
                 IsVisible = videoPost.IsVisible,
-                Categories = videoPost.Categories.Select(x => new CreateCategoryResponseDto
+                Categories = videoPost.Categories?.Select(x => new CreateCategoryResponseDto
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    ShortDescription = x.ShortDescription,
-                    ImageUrl = x.ImageUrl,
-                }).ToList()
+                }).ToList() ?? new List<CreateCategoryResponseDto>()
             };
 
             return Ok(response);
         }
+
 
 
 
@@ -175,7 +164,7 @@ namespace VideoPortal.API.Controllers
 
             foreach (var categoryId in request.Categories)
             {
-                var retreivedCategory = await categoryRepository.GetById(categoryId);
+                var retreivedCategory = await _categoryService.GetByIdAsync(categoryId);
 
                 if (retreivedCategory != null)
                 {
@@ -184,12 +173,8 @@ namespace VideoPortal.API.Controllers
             }
 
             // Call Repository To Update VideoPost Model
-            var updatedVideoPost = await videoPostRepository.UpdateAsync(videoPost);
+             await _videoPostService.UpdateAsync(videoPost);
 
-            if (updatedVideoPost == null)
-            {
-                return NotFound();
-            }
             var response = new CreateVideoPostResponseDto
             {
                 Id = videoPost.Id,
@@ -216,31 +201,12 @@ namespace VideoPortal.API.Controllers
 
 
         // DELETE: videoposts/{id}
-        [HttpDelete]
-        [Route("{id:Guid}")]
+        [HttpDelete("{id:Guid}")]
         public async Task<IActionResult> DeleteVideoPost([FromRoute] Guid id)
         {
-            var deletedVideoPost = await videoPostRepository.DeleteAsync(id);
+            await _videoPostService.DeleteAsync(id);
 
-            if (deletedVideoPost == null)
-            {
-                return NotFound();
-            }
-
-            var response = new CreateVideoPostResponseDto
-            {
-                Id = deletedVideoPost.Id,
-                Title = deletedVideoPost.Title,
-                ShortDescription = deletedVideoPost.ShortDescription,
-                Content = deletedVideoPost.Content,
-                ImageUrl = deletedVideoPost.ImageUrl,
-                VideoUrl = deletedVideoPost.VideoUrl,
-                PublishedDate = deletedVideoPost.PublishedDate,
-                Publisher = deletedVideoPost.Publisher,
-                IsVisible = deletedVideoPost.IsVisible,
-            };
-
-            return Ok(response);
+            return Ok();
         }
 
 
