@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using VideoPortal.API.Models.DTO.Login;
 using VideoPortal.API.Models.DTO.Register;
 
 namespace VideoPortal.API.Controllers
@@ -18,6 +19,44 @@ namespace VideoPortal.API.Controllers
         {
             this.userManager = userManager;
         }
+
+
+        // POST: /api/auth/login
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
+        {
+            // Check Email
+            var identityUser = await userManager.FindByEmailAsync(request.Email);
+
+            if (identityUser is not null)
+            {
+                // Check Password
+                var checkPasswordResult = await userManager.CheckPasswordAsync(identityUser, request.Password);
+
+                if (checkPasswordResult)
+                {
+                    
+                    var roles = await userManager.GetRolesAsync(identityUser);
+
+                    var response = new LoginResponseDto()
+                    {
+                        Email = request.Email,
+                        Roles = roles.ToList(),
+                        Token = "token-test"
+                    };
+
+
+                    return Ok();
+                }
+            }
+            ModelState.AddModelError("", "Email or Password Incorrect");
+
+
+            return ValidationProblem(ModelState);
+        }
+
+
 
         // POST: /api/auth/register
         [HttpPost]
