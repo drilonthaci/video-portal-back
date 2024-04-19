@@ -44,13 +44,13 @@ namespace VideoPortal.API.Data
             var admin = new IdentityUser()
             {
                 Id = adminUserId,
-                UserName = "",
-                Email = "",
-                NormalizedEmail = "".ToUpper(),
-                NormalizedUserName = "".ToUpper()
+                UserName = "life",
+                Email = "admin@life.com",
+                NormalizedEmail = "admin@life.com".ToUpper(),
+                NormalizedUserName = "life".ToUpper()
             };
 
-            admin.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(admin, "Admin@123@");
+            admin.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(admin, "Life@123@");
 
             builder.Entity<IdentityUser>().HasData(admin);
 

@@ -159,17 +159,17 @@ namespace VideoPortal.API.Migrations.AuthDb
                         {
                             Id = "52b8ecd4-70db-48e1-9f30-75319625d923",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9f59d036-136a-48f1-9386-3f4c53db788c",
-                            Email = "",
+                            ConcurrencyStamp = "61cb3606-36a0-453f-a3b0-879b00853e45",
+                            Email = "admin@life.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "",
-                            NormalizedUserName = "",
-                            PasswordHash = "AQAAAAIAAYagAAAAEG2+VzPBwWljUBWADO1AP8Eq7IisBTV6YxMNx6kAHg1bDZPQSjoxiof0VwgtKx0aag==",
+                            NormalizedEmail = "ADMIN@LIFE.COM",
+                            NormalizedUserName = "LIFE",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHlcihOgtEMTleMTSYaEzAFKR4EUNGcfjH4kBeP6aeFMnKU5mslmsGSuLmEBvNmjmQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4aba5fda-5d73-4b12-b914-fc6c522826e5",
+                            SecurityStamp = "b67520a5-73b8-4408-a580-da7d1330a6c1",
                             TwoFactorEnabled = false,
-                            UserName = ""
+                            UserName = "life"
                         });
                 });
 

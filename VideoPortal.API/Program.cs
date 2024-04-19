@@ -32,9 +32,13 @@ namespace VideoPortal.API
             builder.Configuration.GetConnectionString("VideoPortalConnectionString")
          ));
 
+            //Services
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IVideoPostService, VideoPostService>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
 
+
+            //Repositories
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IVideoPostRepository, VideoPostRepository>();
 

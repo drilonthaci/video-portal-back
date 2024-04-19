@@ -12,8 +12,8 @@ using VideoPortal.API.Data;
 namespace VideoPortal.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240417235554_Initial migration")]
-    partial class Initialmigration
+    [Migration("20240419122655_Initial Migration for AppDbContext")]
+    partial class InitialMigrationforAppDbContext
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

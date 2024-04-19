@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VideoPortal.API.Migrations.AuthDb
 {
     /// <inheritdoc />
-    public partial class Addmigrationforauth : Migration
+    public partial class InitialMigrationforAuthDbContext : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -170,7 +170,7 @@ namespace VideoPortal.API.Migrations.AuthDb
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "52b8ecd4-70db-48e1-9f30-75319625d923", 0, "9f59d036-136a-48f1-9386-3f4c53db788c", "", false, false, null, "", "", "AQAAAAIAAYagAAAAEG2+VzPBwWljUBWADO1AP8Eq7IisBTV6YxMNx6kAHg1bDZPQSjoxiof0VwgtKx0aag==", null, false, "4aba5fda-5d73-4b12-b914-fc6c522826e5", false, "" });
+                values: new object[] { "52b8ecd4-70db-48e1-9f30-75319625d923", 0, "61cb3606-36a0-453f-a3b0-879b00853e45", "admin@life.com", false, false, null, "ADMIN@LIFE.COM", "LIFE", "AQAAAAIAAYagAAAAEHlcihOgtEMTleMTSYaEzAFKR4EUNGcfjH4kBeP6aeFMnKU5mslmsGSuLmEBvNmjmQ==", null, false, "b67520a5-73b8-4408-a580-da7d1330a6c1", false, "life" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
