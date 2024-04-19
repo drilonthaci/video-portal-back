@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using VideoPortal.API.Models.Domain;
 using VideoPortal.API.Models.DTO.Category;
 using VideoPortal.API.Models.DTO.VideoPost;
@@ -24,6 +26,7 @@ namespace VideoPortal.API.Controllers
 
         // POST: /api/videoposts
         [HttpPost]
+        [Authorize(Roles = "Creator")]
         public async Task<IActionResult> AddVideoPost([FromBody] CreateVideoPostRequestDto request)
         {
             var videoPost = new VideoPost
@@ -77,6 +80,7 @@ namespace VideoPortal.API.Controllers
 
         // GET: /api/videoposts
         [HttpGet]
+        [Authorize(Roles = "Creator")]
         public async Task<IActionResult> GetAllVideoPosts()
         {
             var videoPosts = await _videoPostService.GetAllAsync();
@@ -145,6 +149,7 @@ namespace VideoPortal.API.Controllers
         // PUT: /videoposts/{id}
         [HttpPut]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Creator")]
         public async Task<IActionResult> UpdateVideoPostById([FromRoute] Guid id, UpdateVideoPostRequestDto request)
         {
             // DTO to Domain Model
@@ -202,6 +207,7 @@ namespace VideoPortal.API.Controllers
 
         // DELETE: videoposts/{id}
         [HttpDelete("{id:Guid}")]
+        [Authorize(Roles = "Creator")]
         public async Task<IActionResult> DeleteVideoPost([FromRoute] Guid id)
         {
             await _videoPostService.DeleteAsync(id);
