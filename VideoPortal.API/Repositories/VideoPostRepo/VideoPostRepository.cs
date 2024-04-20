@@ -18,5 +18,13 @@ namespace VideoPortal.API.Data.Repositories.VideoPostRepo
                 .Include(c => c.Categories)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
+
+        public async Task<List<VideoPost>> GetAllVideoPostsWithCategoriesAsync()
+        {
+            return await _context.VideoPosts
+                .Include(c => c.Categories)
+                .ToListAsync();
+        }
+
     }
 }

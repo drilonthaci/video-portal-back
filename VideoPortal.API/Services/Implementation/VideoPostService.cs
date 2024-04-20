@@ -21,5 +21,10 @@ namespace VideoPortal.API.Services.Implementation
         {
             return await _videoPostRepository.GetVideoPostByIdWithCategoriesAsync(id);
         }
+
+        public async Task<List<VideoPost>> GetAllVideoPostsWithCategoriesAsync()
+        {
+            return await _videoPostRepository.GetAllVideoPostsWithCategoriesAsync();
+        }
     }
 }

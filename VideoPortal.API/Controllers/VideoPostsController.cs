@@ -26,7 +26,7 @@ namespace VideoPortal.API.Controllers
 
         // POST: /api/videoposts
         [HttpPost]
-        [Authorize(Roles = "Creator")]
+        //[Authorize(Roles = "Creator")]
         public async Task<IActionResult> AddVideoPost([FromBody] CreateVideoPostRequestDto request)
         {
             var videoPost = new VideoPost
@@ -80,32 +80,36 @@ namespace VideoPortal.API.Controllers
 
         // GET: /api/videoposts
         [HttpGet]
-        [Authorize(Roles = "Creator")]
-        public async Task<IActionResult> GetAllVideoPosts()
+        //  [Authorize(Roles = "Creator")]
+        public async Task<IActionResult> GetAllVideoPostsWithCategories()
         {
-            var videoPosts = await _videoPostService.GetAllAsync();
+            var videoPosts = await _videoPostService.GetAllVideoPostsWithCategoriesAsync();
 
-            // Domain model to DTO
-            var response = new List<CreateVideoPostResponseDto>();
-            foreach (var videoPost in videoPosts)
+            if (videoPosts == null || !videoPosts.Any())
             {
-                response.Add(new CreateVideoPostResponseDto
-                {
-                    Id = videoPost.Id,
-                    Title = videoPost.Title,
-                    ShortDescription = videoPost.ShortDescription,
-                    Content = videoPost.Content,
-                    ImageUrl = videoPost.ImageUrl,
-                    VideoUrl = videoPost.VideoUrl,
-                    PublishedDate = videoPost.PublishedDate,
-                    Publisher = videoPost.Publisher,
-                    IsVisible = videoPost.IsVisible,
-                });
+                return NotFound();
             }
+
+            var response = videoPosts.Select(videoPost => new CreateVideoPostResponseDto
+            {
+                Id = videoPost.Id,
+                Title = videoPost.Title,
+                ShortDescription = videoPost.ShortDescription,
+                Content = videoPost.Content,
+                ImageUrl = videoPost.ImageUrl,
+                VideoUrl = videoPost.VideoUrl,
+                PublishedDate = videoPost.PublishedDate,
+                Publisher = videoPost.Publisher,
+                IsVisible = videoPost.IsVisible,
+                Categories = videoPost.Categories?.Select(category => new CreateCategoryResponseDto
+                {
+                    Id = category.Id,
+                    Name = category.Name
+                }).ToList() ?? new List<CreateCategoryResponseDto>()
+            }).ToList();
 
             return Ok(response);
         }
-
 
 
 
@@ -149,7 +153,7 @@ namespace VideoPortal.API.Controllers
         // PUT: /videoposts/{id}
         [HttpPut]
         [Route("{id:Guid}")]
-        [Authorize(Roles = "Creator")]
+       // [Authorize(Roles = "Creator")]
         public async Task<IActionResult> UpdateVideoPostById([FromRoute] Guid id, UpdateVideoPostRequestDto request)
         {
             // DTO to Domain Model
@@ -207,7 +211,7 @@ namespace VideoPortal.API.Controllers
 
         // DELETE: videoposts/{id}
         [HttpDelete("{id:Guid}")]
-        [Authorize(Roles = "Creator")]
+       // [Authorize(Roles = "Creator")]
         public async Task<IActionResult> DeleteVideoPost([FromRoute] Guid id)
         {
             await _videoPostService.DeleteAsync(id);
