@@ -24,9 +24,24 @@ namespace VideoPortal.API.Controllers
 
 
 
+        [HttpGet("search")]
+        public async Task<IActionResult> Search(string searchString)
+        {
+            try
+            {
+                var results = await _videoPostService.SearchAsync(searchString);
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+
         // POST: /api/videoposts
         [HttpPost]
-        //[Authorize(Roles = "Creator")]
+        [Authorize(Roles = "Creator")]
         public async Task<IActionResult> AddVideoPost([FromBody] CreateVideoPostRequestDto request)
         {
             var videoPost = new VideoPost
@@ -153,7 +168,7 @@ namespace VideoPortal.API.Controllers
         // PUT: /videoposts/{id}
         [HttpPut]
         [Route("{id:Guid}")]
-       // [Authorize(Roles = "Creator")]
+        [Authorize(Roles = "Creator")]
         public async Task<IActionResult> UpdateVideoPostById([FromRoute] Guid id, UpdateVideoPostRequestDto request)
         {
             // DTO to Domain Model
@@ -211,7 +226,7 @@ namespace VideoPortal.API.Controllers
 
         // DELETE: videoposts/{id}
         [HttpDelete("{id:Guid}")]
-       // [Authorize(Roles = "Creator")]
+        [Authorize(Roles = "Creator")]
         public async Task<IActionResult> DeleteVideoPost([FromRoute] Guid id)
         {
             await _videoPostService.DeleteAsync(id);

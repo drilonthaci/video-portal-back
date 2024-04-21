@@ -7,5 +7,7 @@ namespace VideoPortal.API.Services.Interface
     {
         Task<VideoPost> GetVideoPostByIdWithCategoriesAsync(Guid id);
         Task<List<VideoPost>> GetAllVideoPostsWithCategoriesAsync();
+
+        Task<List<VideoPost>> SearchAsync(string searchString);
     }
 }

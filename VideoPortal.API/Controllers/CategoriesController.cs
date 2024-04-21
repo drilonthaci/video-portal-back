@@ -21,7 +21,7 @@ namespace VideoPortal.API.Controllers
 
         // POST: api/Categories
         [HttpPost]
-        //[Authorize(Roles = "Creator")]
+        [Authorize(Roles = "Creator")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequestDto request)
         {
             if (!ModelState.IsValid)
@@ -112,7 +112,7 @@ namespace VideoPortal.API.Controllers
 
         // PUT: api/categories/{id}
         [HttpPut("{id:Guid}")]
-        //[Authorize(Roles = "Creator")]
+        [Authorize(Roles = "Creator")]
         public async Task<IActionResult> EditCategory([FromRoute] Guid id, [FromBody] UpdateCategoryRequestDto request)
         {
             if (!ModelState.IsValid)
@@ -150,7 +150,7 @@ namespace VideoPortal.API.Controllers
 
 
         [HttpDelete("{id:Guid}")]
-        //[Authorize(Roles = "Creator")]
+        [Authorize(Roles = "Creator")]
         public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
         {
             await _service.DeleteAsync(id);

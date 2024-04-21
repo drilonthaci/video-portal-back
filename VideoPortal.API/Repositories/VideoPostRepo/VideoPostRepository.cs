@@ -26,5 +26,30 @@ namespace VideoPortal.API.Data.Repositories.VideoPostRepo
                 .ToListAsync();
         }
 
+
+
+
+        public async Task<List<VideoPost>> SearchAsync(string searchString)
+        {
+            searchString = searchString?.Trim();
+
+            if (string.IsNullOrEmpty(searchString))
+            {
+                return new List<VideoPost>();
+            }
+
+            // Normalize search string to lowercase for case-insensitive
+            var searchLowercase = searchString.ToLower();
+
+            return await _context.VideoPosts
+                .Where(vp =>
+                    // Check if the lowercased Title contains the word as a substring
+                    vp.Title.ToLower().Contains(searchLowercase) ||
+                    // Check if the lowercased shortDescription contains the word as a substring
+                    (vp.ShortDescription != null && vp.ShortDescription.ToLower().Contains(searchLowercase))
+                )
+                .ToListAsync();
+        }
+
     }
 }

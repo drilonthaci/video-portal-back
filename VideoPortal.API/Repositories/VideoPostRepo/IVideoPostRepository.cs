@@ -6,5 +6,7 @@ namespace VideoPortal.API.Data.Repositories.VideoPostRepo
     {
         Task<VideoPost> GetVideoPostByIdWithCategoriesAsync(Guid id);
         Task<List<VideoPost>> GetAllVideoPostsWithCategoriesAsync();
+
+        Task<List<VideoPost>> SearchAsync(string searchString);
     }
 }
