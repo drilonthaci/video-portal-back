@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Text.Json.Serialization;
 using VideoPortal.API.Data;
 using VideoPortal.API.Data.Repositories.CategoryRepo;
 using VideoPortal.API.Data.Repositories.VideoPostRepo;
@@ -81,6 +82,11 @@ namespace VideoPortal.API
                     };
                 });
 
+
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+            });
 
             var app = builder.Build();
 

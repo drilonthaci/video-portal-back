@@ -1,4 +1,5 @@
 ﻿
+using System.Text.Json.Serialization;
 using VideoPortal.API.Data.Repositories.Base;
 
 namespace VideoPortal.API.Models.Domain
@@ -16,6 +17,7 @@ namespace VideoPortal.API.Models.Domain
         public bool IsVisible { get; set; }
 
         public ICollection<Category> Categories { get; set; }
+        [JsonIgnore]
         public ICollection<VideoPostLike> Likes { get; set; }
     }
 }
