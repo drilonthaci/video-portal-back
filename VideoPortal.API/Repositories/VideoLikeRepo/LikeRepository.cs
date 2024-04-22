@@ -22,13 +22,13 @@ namespace VideoPortal.API.Repositories.VideoLikeRepo
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<VideoPostLike>> GetLikesForUserAsync(Guid userId)
-        {
-            return await _context.VideoLikes
-                .Include(l => l.VideoPost)
-                .Where(l => l.UserId == userId)
-                .ToListAsync();
-        }
+      //  public async Task<List<VideoPostLike>> GetLikesForUserAsync(Guid userId)
+        //{
+          //  return await _context.VideoLikes
+            //    .Include(l => l.VideoPost)
+              //  .Where(l => l.UserId == userId)
+                //.ToListAsync();
+        //}
 
         public async Task RemoveVideoLikeForUserAsync(Guid likeId)
         {

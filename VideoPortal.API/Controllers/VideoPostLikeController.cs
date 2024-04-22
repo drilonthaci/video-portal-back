@@ -32,13 +32,13 @@ namespace VideoPortal.API.Controllers
             return Ok();
         }
 
-        [HttpGet("user-likes/{userId}")]
-        public async Task<IActionResult> GetUserLikesForAllVideoPosts(Guid userId)
-        {
-            var userLikes = await _likeService.GetLikesForUserAsync(userId);
+       // [HttpGet("user-likes/{userId}")]
+        //public async Task<IActionResult> GetUserLikesForAllVideoPosts(Guid userId)
+        //{
+          //  var userLikes = await _likeService.GetLikesForUserAsync(userId);
 
-            return Ok(userLikes);
-        }
+            //return Ok(userLikes);
+       // }
 
         [HttpDelete("Remove/{likeId}")]
         public async Task<IActionResult> RemoveLike(Guid likeId)

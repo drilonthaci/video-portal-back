@@ -6,7 +6,7 @@ namespace VideoPortal.API.Services.Interface
     {
         Task AddLikeAsync(Guid videoPostId, Guid userId);
 
-        Task<List<VideoPostLike>> GetLikesForUserAsync(Guid userId);
+       // Task<List<VideoPostLike>> GetLikesForUserAsync(Guid userId);
 
         Task RemoveVideoLikeForUserAsync(Guid likeId);
     }

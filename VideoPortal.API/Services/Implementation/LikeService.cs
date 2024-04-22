@@ -22,10 +22,10 @@ namespace VideoPortal.API.Services.Implementation
          await _likeRepository.AddLikeAsync(videoPostId, userId);
            }
 
-        public async Task<List<VideoPostLike>> GetLikesForUserAsync(Guid userId)
-        {
-            return await _likeRepository.GetLikesForUserAsync(userId);
-        }
+      //  public async Task<List<VideoPostLike>> GetLikesForUserAsync(Guid userId)
+        //{
+          //  return await _likeRepository.GetLikesForUserAsync(userId);
+        //}
 
         public async Task RemoveVideoLikeForUserAsync(Guid likeId)
         {
