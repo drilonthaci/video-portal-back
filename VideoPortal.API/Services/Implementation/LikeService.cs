@@ -27,7 +27,10 @@ namespace VideoPortal.API.Services.Implementation
             return await _likeRepository.GetLikesForUserAsync(userId);
         }
 
-
+        public async Task RemoveVideoLikeForUserAsync(Guid likeId)
+        {
+            await _likeRepository.RemoveVideoLikeForUserAsync(likeId);
+        }
 
 
     }

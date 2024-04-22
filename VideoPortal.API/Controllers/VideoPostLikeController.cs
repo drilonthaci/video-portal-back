@@ -40,5 +40,13 @@ namespace VideoPortal.API.Controllers
             return Ok(userLikes);
         }
 
+        [HttpDelete("Remove/{likeId}")]
+        public async Task<IActionResult> RemoveLike(Guid likeId)
+        {
+            await _likeService.RemoveVideoLikeForUserAsync(likeId);
+
+            return Ok();
+        }
+
     }
 }

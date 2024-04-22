@@ -30,5 +30,14 @@ namespace VideoPortal.API.Repositories.VideoLikeRepo
                 .ToListAsync();
         }
 
+        public async Task RemoveVideoLikeForUserAsync(Guid likeId)
+        {
+            var like = await _context.VideoLikes.FindAsync(likeId);
+            if (like != null)
+            {
+                _context.VideoLikes.Remove(like);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }
