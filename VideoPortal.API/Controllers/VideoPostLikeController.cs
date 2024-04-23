@@ -17,36 +17,35 @@ namespace VideoPortal.API.Controllers
             _likeService = likeService;
         }
 
-
-        [HttpPost("Add")]
-        public async Task<IActionResult> AddLike([FromBody] AddVideoPostLikeRequest addVideoPostLikeRequest)
+        [HttpPost("like/{videoPostId}")]
+        public async Task<IActionResult> LikeVideoPost(Guid videoPostId,  string userEmail)
         {
-            if (!ModelState.IsValid)
+            if (string.IsNullOrEmpty(userEmail))
+                return BadRequest("User email is required.");
+
+            var result = await _likeService.LikeVideoPostAsync(videoPostId, userEmail);
+
+            if (result)
+                return Ok();
+
+            return BadRequest("User has already liked this post.");
+        }
+
+
+        [HttpGet("likes")]
+        public async Task<IActionResult> GetUserLikes(string userEmail)
+        {
+            try
             {
-                return BadRequest(ModelState);
+                var likes = await _likeService.GetLikesByUserAsync(userEmail);
+                return Ok(likes);
             }
-
-            await _likeService.AddLikeAsync(addVideoPostLikeRequest.VideoPostId,
-                addVideoPostLikeRequest.UserId);
-
-            return Ok();
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occurred while retrieving user likes.");
+            }
         }
 
-       // [HttpGet("user-likes/{userId}")]
-        //public async Task<IActionResult> GetUserLikesForAllVideoPosts(Guid userId)
-        //{
-          //  var userLikes = await _likeService.GetLikesForUserAsync(userId);
-
-            //return Ok(userLikes);
-       // }
-
-        [HttpDelete("Remove/{likeId}")]
-        public async Task<IActionResult> RemoveLike(Guid likeId)
-        {
-            await _likeService.RemoveVideoLikeForUserAsync(likeId);
-
-            return Ok();
-        }
 
     }
 }

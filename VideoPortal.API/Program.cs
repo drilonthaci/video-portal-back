@@ -100,6 +100,8 @@ namespace VideoPortal.API
                 options.AllowAnyHeader();
                 options.AllowAnyOrigin();
                 options.AllowAnyMethod();
+
+
             });
 
             app.UseAuthentication();

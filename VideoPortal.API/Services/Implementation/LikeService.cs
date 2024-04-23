@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using VideoPortal.API.Models.Domain;
+using VideoPortal.API.Models.DTO.VideoPostLike;
 using VideoPortal.API.Repositories.VideoLikeRepo;
 using VideoPortal.API.Services.Interface;
 
@@ -16,20 +17,14 @@ namespace VideoPortal.API.Services.Implementation
             _userManager = userManager;
         }
 
-
-          public async Task AddLikeAsync(Guid videoPostId, Guid userId)
-              {
-         await _likeRepository.AddLikeAsync(videoPostId, userId);
-           }
-
-      //  public async Task<List<VideoPostLike>> GetLikesForUserAsync(Guid userId)
-        //{
-          //  return await _likeRepository.GetLikesForUserAsync(userId);
-        //}
-
-        public async Task RemoveVideoLikeForUserAsync(Guid likeId)
+        public async Task<bool> LikeVideoPostAsync(Guid videoPostId, string userEmail)
         {
-            await _likeRepository.RemoveVideoLikeForUserAsync(likeId);
+            return await _likeRepository.LikeVideoPostAsync(videoPostId, userEmail);
+        }
+
+        public async Task<IEnumerable<UserLikeDto>> GetLikesByUserAsync(string userEmail)
+        {
+            return await _likeRepository.GetLikesByUserAsync(userEmail);
         }
 
 
