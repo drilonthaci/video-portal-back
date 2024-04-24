@@ -2,12 +2,16 @@
 
 namespace VideoPortal.API.Models.Domain
 {
-    public class VideoPostLike
+    public class VideoPostComment
     {
         public Guid Id { get; set; }
+        public string CommentText { get; set; }
+        public DateTime CommentedAt { get; set; }
+
         public Guid VideoPostId { get; set; }
         public VideoPost VideoPost { get; set; }
         public string UserEmail { get; set; }
         public IdentityUser User { get; set; }
+      
     }
 }

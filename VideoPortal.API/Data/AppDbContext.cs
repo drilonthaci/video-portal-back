@@ -13,6 +13,7 @@ namespace VideoPortal.API.Data
         public DbSet<VideoPost> VideoPosts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<VideoPostLike> VideoLikes { get; set; }
+        public DbSet<VideoPostComment> VideoPostComments { get; set; }
 
     }
 }
