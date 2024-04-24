@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 using VideoPortal.API.Data;
 using VideoPortal.API.Data.Repositories.CategoryRepo;
 using VideoPortal.API.Data.Repositories.VideoPostRepo;
+using VideoPortal.API.Repositories.CommentRepo;
 using VideoPortal.API.Repositories.VideoLikeRepo;
 using VideoPortal.API.Services.Implementation;
 using VideoPortal.API.Services.Interface;
@@ -39,11 +40,13 @@ namespace VideoPortal.API
             builder.Services.AddScoped<IVideoPostService, VideoPostService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<ILikeService, LikeService>();
+            builder.Services.AddScoped<IVideoPostCommentService, VideoPostCommentService>();
 
             //Repositories
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IVideoPostRepository, VideoPostRepository>();
             builder.Services.AddScoped<ILikeRepository, LikeRepository>();
+            builder.Services.AddScoped<IVideoPostCommentRepository, VideoPostCommentRepository>();
 
 
 

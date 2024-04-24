@@ -16,6 +16,7 @@ namespace VideoPortal.API.Data.Repositories.VideoPostRepo
         {
             return await _context.VideoPosts
                 .Include(c => c.Categories)
+                .Include(vp => vp.VideoPostComments)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 

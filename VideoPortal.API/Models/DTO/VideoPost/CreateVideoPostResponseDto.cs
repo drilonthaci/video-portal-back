@@ -1,4 +1,5 @@
 ﻿using VideoPortal.API.Models.DTO.Category;
+using VideoPortal.API.Models.DTO.VideoPostComment;
 
 namespace VideoPortal.API.Models.DTO.VideoPost
 {
@@ -15,5 +16,6 @@ namespace VideoPortal.API.Models.DTO.VideoPost
         public bool IsVisible { get; set; }
 
         public List<CreateCategoryResponseDto> Categories { get; set; } = new List<CreateCategoryResponseDto>();
+        public List<CreateCommentResponseDto> Comments { get; set; } = new List<CreateCommentResponseDto>();
     }
 }

@@ -4,6 +4,7 @@ using System.Data;
 using VideoPortal.API.Models.Domain;
 using VideoPortal.API.Models.DTO.Category;
 using VideoPortal.API.Models.DTO.VideoPost;
+using VideoPortal.API.Models.DTO.VideoPostComment;
 using VideoPortal.API.Services.Interface;
 
 namespace VideoPortal.API.Controllers
@@ -155,7 +156,15 @@ namespace VideoPortal.API.Controllers
                 {
                     Id = x.Id,
                     Name = x.Name,
-                }).ToList() ?? new List<CreateCategoryResponseDto>()
+                }).ToList() ?? new List<CreateCategoryResponseDto>(),
+
+                 Comments = videoPost.VideoPostComments?.Select(co => new CreateCommentResponseDto
+                 {
+                     Id = co.Id,
+                     UserEmail = co.UserEmail,
+                     CommentText = co.CommentText,
+                     CommentedAt = co.CommentedAt
+                 }).ToList() ?? new List<CreateCommentResponseDto>()
             };
 
             return Ok(response);
