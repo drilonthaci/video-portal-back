@@ -17,7 +17,7 @@ namespace VideoPortal.API.Models.Domain
         public bool IsVisible { get; set; }
 
         public ICollection<Category> Categories { get; set; }
-       // [JsonIgnore]
         public ICollection<VideoPostLike> Likes { get; set; }
+        public ICollection<VideoPostComment> VideoPostComments { get; set; }
     }
 }
