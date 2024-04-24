@@ -26,6 +26,10 @@ namespace VideoPortal.API.Services.Implementation
         {
             return await _likeRepository.GetLikesByUserAsync(userEmail);
         }
+        public async Task<bool> UnlikeVideoPostAsync(Guid videoPostId, string userEmail)
+        {
+            return await _likeRepository.UnlikeVideoPostAsync(videoPostId, userEmail);
+        }
 
 
     }

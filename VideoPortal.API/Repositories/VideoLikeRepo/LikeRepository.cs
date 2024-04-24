@@ -52,7 +52,19 @@ namespace VideoPortal.API.Repositories.VideoLikeRepo
                 })
                 .ToListAsync();
         }
+        public async Task<bool> UnlikeVideoPostAsync(Guid videoPostId, string userEmail)
+        {
+            var existingLike = await _context.VideoLikes
+                .FirstOrDefaultAsync(l => l.VideoPostId == videoPostId && l.UserEmail == userEmail);
 
-     
+            if (existingLike != null)
+            {
+                _context.VideoLikes.Remove(existingLike);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false; // Like not found
+        }
     }
 }

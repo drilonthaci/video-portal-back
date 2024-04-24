@@ -7,6 +7,6 @@ namespace VideoPortal.API.Services.Interface
     {
         Task<bool> LikeVideoPostAsync(Guid videoPostId, string userEmail);
         Task<IEnumerable<UserLikeDto>> GetLikesByUserAsync(string userEmail);
-
+        Task<bool> UnlikeVideoPostAsync(Guid videoPostId, string userEmail);
     }
 }

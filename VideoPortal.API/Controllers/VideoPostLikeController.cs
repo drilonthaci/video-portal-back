@@ -45,6 +45,20 @@ namespace VideoPortal.API.Controllers
                 return StatusCode(500, "An error occurred while retrieving user likes.");
             }
         }
+        [HttpDelete("unlike/{videoPostId}")]
+        public async Task<IActionResult> UnlikeVideoPost(Guid videoPostId, string userEmail)
+        {
+            if (string.IsNullOrEmpty(userEmail))
+                return BadRequest("User email is required.");
+
+            var result = await _likeService.UnlikeVideoPostAsync(videoPostId, userEmail);
+
+            if (result)
+                return Ok();
+
+            return BadRequest("User has not liked this post.");
+        }
+
 
 
     }
