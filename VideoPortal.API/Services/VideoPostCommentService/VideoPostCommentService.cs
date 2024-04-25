@@ -1,9 +1,8 @@
 ﻿using VideoPortal.API.Models.DTO.VideoPostComment;
 using VideoPortal.API.Models.DTO.VideoPostLike;
-using VideoPortal.API.Repositories.CommentRepo;
-using VideoPortal.API.Services.Interface;
+using VideoPortal.API.Repositories.VideoPostCommentRepository;
 
-namespace VideoPortal.API.Services.Implementation
+namespace VideoPortal.API.Services.VideoPostCommentService
 {
     public class VideoPostCommentService : IVideoPostCommentService
     {

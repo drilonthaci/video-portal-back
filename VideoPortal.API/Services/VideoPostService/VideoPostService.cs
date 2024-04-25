@@ -1,17 +1,17 @@
 ﻿using VideoPortal.API.Data;
 using VideoPortal.API.Data.Repositories.Base;
 using VideoPortal.API.Data.Repositories.VideoPostRepo;
+using VideoPortal.API.Data.Repositories.VideoPostRepository;
 using VideoPortal.API.Models.Domain;
-using VideoPortal.API.Services.Interface;
 
-namespace VideoPortal.API.Services.Implementation
+namespace VideoPortal.API.Services.VideoPostService
 {
     public class VideoPostService : IVideoPostService
     {
         private readonly IVideoPostRepository _videoPostRepository;
 
         public VideoPostService(IVideoPostRepository videoPostRepository)
-            
+
         {
             _videoPostRepository = videoPostRepository;
         }

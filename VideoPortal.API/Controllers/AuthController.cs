@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VideoPortal.API.Models.DTO.Login;
 using VideoPortal.API.Models.DTO.Register;
-using VideoPortal.API.Services.Interface;
+using VideoPortal.API.Services.TokenService;
 
 namespace VideoPortal.API.Controllers
 {

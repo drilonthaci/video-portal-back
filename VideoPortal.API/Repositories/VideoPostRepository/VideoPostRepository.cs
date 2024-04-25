@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VideoPortal.API.Data.Repositories.Base;
+using VideoPortal.API.Data.Repositories.VideoPostRepository;
 using VideoPortal.API.Models.Domain;
 
 namespace VideoPortal.API.Data.Repositories.VideoPostRepo

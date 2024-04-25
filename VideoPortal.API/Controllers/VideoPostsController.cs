@@ -5,7 +5,8 @@ using VideoPortal.API.Models.Domain;
 using VideoPortal.API.Models.DTO.Category;
 using VideoPortal.API.Models.DTO.VideoPost;
 using VideoPortal.API.Models.DTO.VideoPostComment;
-using VideoPortal.API.Services.Interface;
+using VideoPortal.API.Services.CategoryService;
+using VideoPortal.API.Services.VideoPostService;
 
 namespace VideoPortal.API.Controllers
 {

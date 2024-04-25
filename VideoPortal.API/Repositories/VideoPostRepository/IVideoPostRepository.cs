@@ -1,7 +1,7 @@
 ﻿using VideoPortal.API.Data.Repositories.Base;
 using VideoPortal.API.Models.Domain;
 
-namespace VideoPortal.API.Data.Repositories.VideoPostRepo
+namespace VideoPortal.API.Data.Repositories.VideoPostRepository
 {
     public interface IVideoPostRepository : IEntityBaseRepository<VideoPost>
     {

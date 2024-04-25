@@ -1,9 +1,9 @@
 ﻿using VideoPortal.API.Models.Domain;
 using VideoPortal.API.Models.DTO.VideoPostLike;
 
-namespace VideoPortal.API.Services.Interface
+namespace VideoPortal.API.Repositories.VideoPostLikeRepository
 {
-    public interface ILikeService
+    public interface IVideoPostLikeRepository
     {
         Task<bool> LikeVideoPostAsync(Guid videoPostId, string userEmail);
         Task<IEnumerable<UserLikeDto>> GetLikesByUserAsync(string userEmail);

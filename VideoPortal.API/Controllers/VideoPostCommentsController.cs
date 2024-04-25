@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using VideoPortal.API.Services.Implementation;
-using VideoPortal.API.Services.Interface;
+using VideoPortal.API.Services.VideoPostCommentService;
 
 namespace VideoPortal.API.Controllers
 {

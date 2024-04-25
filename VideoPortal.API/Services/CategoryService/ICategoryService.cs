@@ -1,10 +1,8 @@
 ﻿using VideoPortal.API.Models.Domain;
-using VideoPortal.API.Data.Repositories.Base;
-using VideoPortal.API.Data.Repositories.CategoryRepo;
 
-namespace VideoPortal.API.Services.Interface
+namespace VideoPortal.API.Services.CategoryService
 {
-    public interface ICategoryService 
+    public interface ICategoryService
     {
         Task<Category> GetCategoryByIdWithVideoPostsAsync(Guid id);
         Task<IEnumerable<Category>> GetAllAsync();

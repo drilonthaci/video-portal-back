@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using VideoPortal.API.Models.DTO.VideoPostLike;
-using VideoPortal.API.Services.Interface;
+using VideoPortal.API.Services.VideoPostLikeService;
 
 namespace VideoPortal.API.Controllers
 {
@@ -10,9 +10,9 @@ namespace VideoPortal.API.Controllers
     [ApiController]
     public class VideoPostLikeController : ControllerBase
     {
-        private readonly ILikeService _likeService;
+        private readonly IVideoPostLikeService _likeService;
 
-        public VideoPostLikeController(ILikeService likeService)
+        public VideoPostLikeController(IVideoPostLikeService likeService)
         {
             _likeService = likeService;
         }

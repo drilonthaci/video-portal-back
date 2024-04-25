@@ -1,9 +1,9 @@
 ﻿using VideoPortal.API.Models.Domain;
 using VideoPortal.API.Models.DTO.VideoPostComment;
 
-namespace VideoPortal.API.Services.Interface
+namespace VideoPortal.API.Repositories.VideoPostCommentRepository
 {
-    public interface IVideoPostCommentService
+    public interface IVideoPostCommentRepository
     {
         Task<bool> AddVideoPostCommentAsync(Guid videoPostId, string userEmail, string commentText);
         Task<List<VideoPostCommentDto>> GetCommentsByUserAsync(string userEmail);

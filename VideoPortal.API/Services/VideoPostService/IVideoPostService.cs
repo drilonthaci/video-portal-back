@@ -1,9 +1,9 @@
 ﻿using VideoPortal.API.Data.Repositories.Base;
 using VideoPortal.API.Models.Domain;
 
-namespace VideoPortal.API.Services.Interface
+namespace VideoPortal.API.Services.VideoPostService
 {
-    public interface IVideoPostService 
+    public interface IVideoPostService
     {
         Task<VideoPost> GetVideoPostByIdWithCategoriesAsync(Guid id);
         Task<List<VideoPost>> GetAllVideoPostsWithCategoriesAsync();

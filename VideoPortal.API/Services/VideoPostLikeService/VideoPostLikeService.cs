@@ -1,20 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity;
-using VideoPortal.API.Models.Domain;
-using VideoPortal.API.Models.DTO.VideoPostLike;
-using VideoPortal.API.Repositories.VideoLikeRepo;
-using VideoPortal.API.Services.Interface;
+﻿using VideoPortal.API.Models.DTO.VideoPostLike;
+using VideoPortal.API.Repositories.VideoPostLikeRepository;
 
-namespace VideoPortal.API.Services.Implementation
+namespace VideoPortal.API.Services.VideoPostLikeService
 {
-    public class LikeService : ILikeService
+    public class VideoPostLikeService : IVideoPostLikeService
     {
-        private readonly ILikeRepository _likeRepository;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IVideoPostLikeRepository _likeRepository;
 
-        public LikeService(ILikeRepository likeRepository, UserManager<IdentityUser> userManager)
+        public VideoPostLikeService(IVideoPostLikeRepository likeRepository)
         {
             _likeRepository = likeRepository;
-            _userManager = userManager;
         }
 
         public async Task<bool> LikeVideoPostAsync(Guid videoPostId, string userEmail)

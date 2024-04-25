@@ -1,11 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using VideoPortal.API.Data;
-using VideoPortal.API.Data.Repositories.Base;
-using VideoPortal.API.Data.Repositories.CategoryRepo;
+﻿using VideoPortal.API.Data.Repositories.CategoryRepository;
 using VideoPortal.API.Models.Domain;
-using VideoPortal.API.Services.Interface;
 
-namespace VideoPortal.API.Services.Implementation
+namespace VideoPortal.API.Services.CategoryService
 {
     public class CategoryService : ICategoryService
     {

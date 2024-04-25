@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace VideoPortal.API.Services.Interface
+namespace VideoPortal.API.Services.TokenService
 {
     public interface ITokenService
     {

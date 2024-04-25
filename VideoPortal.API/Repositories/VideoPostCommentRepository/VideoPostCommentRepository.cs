@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using VideoPortal.API.Data;
 using VideoPortal.API.Models.Domain;
 using VideoPortal.API.Models.DTO.VideoPostComment;
-using VideoPortal.API.Models.DTO.VideoPostLike;
+using VideoPortal.API.Repositories.VideoPostCommentRepository;
 
-namespace VideoPortal.API.Repositories.CommentRepo
+namespace VideoPortal.API.Repositories.VideoPostCommentRepository
 { 
     public class VideoPostCommentRepository : IVideoPostCommentRepository
     {

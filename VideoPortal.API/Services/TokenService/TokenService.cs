@@ -3,9 +3,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using VideoPortal.API.Services.Interface;
 
-namespace VideoPortal.API.Services.Implementation
+namespace VideoPortal.API.Services.TokenService
 {
     public class TokenService : ITokenService
     {

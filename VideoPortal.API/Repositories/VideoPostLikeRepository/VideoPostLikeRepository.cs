@@ -3,17 +3,18 @@ using Microsoft.EntityFrameworkCore;
 using VideoPortal.API.Data;
 using VideoPortal.API.Models.Domain;
 using VideoPortal.API.Models.DTO.VideoPostLike;
+using VideoPortal.API.Repositories.VideoPostLikeRepository;
 
-namespace VideoPortal.API.Repositories.VideoLikeRepo
+namespace VideoPortal.API.Repositories.VideoPostLikeRepository
 {
-    public class LikeRepository : ILikeRepository
+    public class VideoPostLikeRepository : IVideoPostLikeRepository
     {
 
         private readonly AppDbContext _context;
 
         private readonly UserManager<IdentityUser> _userManager;
 
-        public LikeRepository(AppDbContext context, UserManager<IdentityUser> userManager)
+        public VideoPostLikeRepository(AppDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManager = userManager;

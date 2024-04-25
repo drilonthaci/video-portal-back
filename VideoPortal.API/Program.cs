@@ -5,12 +5,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
 using VideoPortal.API.Data;
-using VideoPortal.API.Data.Repositories.CategoryRepo;
 using VideoPortal.API.Data.Repositories.VideoPostRepo;
-using VideoPortal.API.Repositories.CommentRepo;
-using VideoPortal.API.Repositories.VideoLikeRepo;
-using VideoPortal.API.Services.Implementation;
-using VideoPortal.API.Services.Interface;
+using VideoPortal.API.Repositories.VideoPostCommentRepository;
+using VideoPortal.API.Services.CategoryService;
+using VideoPortal.API.Services.TokenService;
+using VideoPortal.API.Services.VideoPostCommentService;
+using VideoPortal.API.Services.VideoPostLikeService;
+using VideoPortal.API.Services.VideoPostService;
+using VideoPortal.API.Data.Repositories.CategoryRepository;
+using VideoPortal.API.Repositories.VideoPostLikeRepository;
+using VideoPortal.API.Data.Repositories.VideoPostRepository;
 
 namespace VideoPortal.API
 {
@@ -39,13 +43,13 @@ namespace VideoPortal.API
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IVideoPostService, VideoPostService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
-            builder.Services.AddScoped<ILikeService, LikeService>();
+            builder.Services.AddScoped<IVideoPostLikeService, VideoPostLikeService>();
             builder.Services.AddScoped<IVideoPostCommentService, VideoPostCommentService>();
 
             //Repositories
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IVideoPostRepository, VideoPostRepository>();
-            builder.Services.AddScoped<ILikeRepository, LikeRepository>();
+            builder.Services.AddScoped<IVideoPostLikeRepository, VideoPostLikeRepository>();
             builder.Services.AddScoped<IVideoPostCommentRepository, VideoPostCommentRepository>();
 
 
