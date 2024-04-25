@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using VideoPortal.API.Data;
 using VideoPortal.API.Models.Domain;
+using VideoPortal.API.Models.DTO.VideoPostComment;
+using VideoPortal.API.Models.DTO.VideoPostLike;
 
 namespace VideoPortal.API.Repositories.CommentRepo
 { 
@@ -30,6 +32,38 @@ namespace VideoPortal.API.Repositories.CommentRepo
             _context.VideoPostComments.Add(newComment);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<VideoPostCommentDto>> GetCommentsByUserAsync(string userEmail)
+        {
+            var comments = await _context.VideoPostComments
+                .Include(c => c.VideoPost) 
+                .Where(c => c.UserEmail == userEmail)
+                .Select(c => new VideoPostCommentDto
+                {
+                    CommentId = c.Id,
+                    CommentText = c.CommentText,
+                    CommentedAt = c.CommentedAt,
+                    VideoPostName = c.VideoPost.Title
+                })
+                .ToListAsync();
+
+            return comments;
+        }
+
+        public async Task<bool> DeleteVideoPostCommentAsync(Guid videoPostId, string userEmail)
+        {
+            var existingComment = await _context.VideoPostComments
+                .FirstOrDefaultAsync(l => l.VideoPostId == videoPostId && l.UserEmail == userEmail);
+
+            if (existingComment != null)
+            {
+                _context.VideoPostComments.Remove(existingComment);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false; // Comment not found
         }
     }
 }
