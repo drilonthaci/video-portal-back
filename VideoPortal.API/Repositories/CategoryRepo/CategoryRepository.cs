@@ -1,16 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using VideoPortal.API.Data.Repositories.Base;
 using VideoPortal.API.Models.Domain;
 
 namespace VideoPortal.API.Data.Repositories.CategoryRepo
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryRepository : EntityBaseRepository<Category>, ICategoryRepository
     {
-        private readonly AppDbContext _context;
 
-        public CategoryRepository(AppDbContext context)
-        {
-            _context = context;
-        }
+        public CategoryRepository(AppDbContext context) : base(context){}
 
         public async Task<Category> GetCategoryByIdWithVideoPostsAsync(Guid id)
         {

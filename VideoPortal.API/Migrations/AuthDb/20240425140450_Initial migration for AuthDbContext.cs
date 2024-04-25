@@ -170,7 +170,7 @@ namespace VideoPortal.API.Migrations.AuthDb
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "52b8ecd4-70db-48e1-9f30-75319625d923", 0, "59841ad6-a24b-4f32-84fc-ab49f7e64ae3", "admin@life.com", false, false, null, "ADMIN@LIFE.COM", "LIFE", "AQAAAAIAAYagAAAAEAIHpf2ZqI3g7W08HxxpwrzOrS+BhQMikpWXfAZa8tVCEl6I8FVL2YNl6wsxeodabQ==", null, false, "403db919-b2bd-430b-af64-dedf19dfb6b0", false, "life" });
+                values: new object[] { "52b8ecd4-70db-48e1-9f30-75319625d923", 0, "31bfdbb5-5876-44c6-9990-100ca79eb0bb", "admin@life.com", false, false, null, "ADMIN@LIFE.COM", "LIFE", "AQAAAAIAAYagAAAAEFXiM3evq+KbZFYyPM5Lsr/8FRJy9Hqpv/rCuZpoUc34CgSDc4yD/FaAPuidJQDkQg==", null, false, "3bc93f90-f01f-441a-a629-83be745ce64c", false, "life" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

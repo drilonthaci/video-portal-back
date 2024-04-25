@@ -6,14 +6,13 @@ using VideoPortal.API.Services.Interface;
 
 namespace VideoPortal.API.Services.Implementation
 {
-    public class VideoPostService : EntityBaseRepository<VideoPost>, IVideoPostService
+    public class VideoPostService : IVideoPostService
     {
         private readonly IVideoPostRepository _videoPostRepository;
 
-        public VideoPostService(IVideoPostRepository videoPostRepository, AppDbContext context)
-            : base(context)
+        public VideoPostService(IVideoPostRepository videoPostRepository)
+            
         {
-
             _videoPostRepository = videoPostRepository;
         }
 
@@ -30,6 +29,21 @@ namespace VideoPortal.API.Services.Implementation
         public async Task<List<VideoPost>> SearchAsync(string searchString)
         {
             return await _videoPostRepository.SearchAsync(searchString);
+        }
+
+        public async Task AddAsync(VideoPost videoPost)
+        {
+            await _videoPostRepository.AddAsync(videoPost);
+        }
+
+        public async Task UpdateAsync(VideoPost videoPost)
+        {
+            await _videoPostRepository.UpdateAsync(videoPost);
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            await _videoPostRepository.DeleteAsync(id);
         }
     }
 }

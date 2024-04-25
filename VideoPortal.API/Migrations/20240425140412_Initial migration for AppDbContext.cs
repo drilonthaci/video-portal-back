@@ -118,6 +118,33 @@ namespace VideoPortal.API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "VideoPostComments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CommentText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CommentedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    VideoPostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VideoPostComments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VideoPostComments_IdentityUser_UserId",
+                        column: x => x.UserId,
+                        principalTable: "IdentityUser",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_VideoPostComments_VideoPosts_VideoPostId",
+                        column: x => x.VideoPostId,
+                        principalTable: "VideoPosts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CategoryVideoPost_VideoPostsId",
                 table: "CategoryVideoPost",
@@ -132,6 +159,16 @@ namespace VideoPortal.API.Migrations
                 name: "IX_VideoLikes_VideoPostId",
                 table: "VideoLikes",
                 column: "VideoPostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VideoPostComments_UserId",
+                table: "VideoPostComments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VideoPostComments_VideoPostId",
+                table: "VideoPostComments",
+                column: "VideoPostId");
         }
 
         /// <inheritdoc />
@@ -142,6 +179,9 @@ namespace VideoPortal.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "VideoLikes");
+
+            migrationBuilder.DropTable(
+                name: "VideoPostComments");
 
             migrationBuilder.DropTable(
                 name: "Categories");

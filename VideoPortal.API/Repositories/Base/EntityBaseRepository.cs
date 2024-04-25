@@ -8,7 +8,7 @@ namespace VideoPortal.API.Data.Repositories.Base
 
     public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class, IEntityBase, new()
     {
-        private readonly AppDbContext _context;
+        protected readonly AppDbContext _context;
 
         public EntityBaseRepository(AppDbContext context)
         {
