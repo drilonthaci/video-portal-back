@@ -1,22 +1,22 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+# Use the official ASP.NET Core SDK image as a build stage
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
+WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+# Copy the project file and restore dependencies
+COPY *.csproj ./
+RUN dotnet restore
+
+# Copy the remaining source code and build the application
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+# Use a lightweight ASP.NET Core runtime image for the final stage
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
-COPY ["VideoPortal.API/VideoPortal.API.csproj", "VideoPortal.API/"]
-RUN dotnet restore "VideoPortal.API/VideoPortal.API.csproj"
-COPY . .
-WORKDIR "/src/VideoPortal.API"
-RUN dotnet build "VideoPortal.API.csproj" -c Release -o /app/build
+# Copy the built application from the build stage
+COPY --from=build-env /app/out .
 
-FROM build AS publish
-RUN dotnet publish "VideoPortal.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
+# Set the entry point for the application
 ENTRYPOINT ["dotnet", "VideoPortal.API.dll"]
