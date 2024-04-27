@@ -8,24 +8,23 @@ namespace VideoPortal.API.Services.VideoPostCommentService
     {
         private readonly IVideoPostCommentRepository _commentRepository;
 
-        public VideoPostCommentService(IVideoPostCommentRepository commentRepository)
+     public VideoPostCommentService(IVideoPostCommentRepository commentRepository)
         {
             _commentRepository = commentRepository;
         }
-        public async Task<bool> AddVideoPostCommentAsync(Guid videoPostId, string userEmail, string commentText)
+        public async Task<bool> AddVideoPostCommentAsync(Guid videoPostId, string userId, string commentText)
         {
-            return await _commentRepository.AddVideoPostCommentAsync(videoPostId, userEmail, commentText);
+            return await _commentRepository.AddVideoPostCommentAsync(videoPostId, userId, commentText);
         }
 
-        public async Task<List<VideoPostCommentDto>> GetCommentsByUserAsync(string userEmail)
+        public async Task<List<VideoPostCommentDto>> GetCommentsByUserAsync(string userId)
         {
-            return await _commentRepository.GetCommentsByUserAsync(userEmail);
+            return await _commentRepository.GetCommentsByUserAsync(userId);
         }
 
-        public async Task<bool> DeleteVideoPostCommentAsync(Guid videoPostId, string userEmail)
+        public async Task<bool> DeleteVideoPostCommentAsync(Guid videoPostId, string userId)
         {
-            return await _commentRepository.DeleteVideoPostCommentAsync(videoPostId, userEmail);
+            return await _commentRepository.DeleteVideoPostCommentAsync(videoPostId, userId);
         }
-
     }
 }

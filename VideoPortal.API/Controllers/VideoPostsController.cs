@@ -159,13 +159,13 @@ namespace VideoPortal.API.Controllers
                     Name = x.Name,
                 }).ToList() ?? new List<CreateCategoryResponseDto>(),
 
-                 Comments = videoPost.VideoPostComments?.Select(co => new CreateCommentResponseDto
+               Comments = videoPost.VideoPostComments?.Select(co => new CreateCommentResponseDto
                  {
                      Id = co.Id,
-                     UserEmail = co.UserEmail,
+                     UserId = co.UserId,
                      CommentText = co.CommentText,
                      CommentedAt = co.CommentedAt
-                 }).ToList() ?? new List<CreateCommentResponseDto>()
+                 }).ToList() ?? new List<CreateCommentResponseDto>() 
             };
 
             return Ok(response);
