@@ -10,7 +10,8 @@ namespace VideoPortal.API.Models.Domain
 
         public Guid VideoPostId { get; set; }
         public VideoPost VideoPost { get; set; }
-        public string UserId { get; set; }
-
+        public string UserEmail { get; set; }
+        public IdentityUser User { get; set; }
+      
     }
 }

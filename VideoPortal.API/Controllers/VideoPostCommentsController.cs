@@ -10,15 +10,15 @@ namespace VideoPortal.API.Controllers
     {
         private readonly IVideoPostCommentService _commentService;
 
-       public VideoPostCommentsController(IVideoPostCommentService commentService)
+        public VideoPostCommentsController(IVideoPostCommentService commentService)
         {
             _commentService = commentService;
         }
 
         [HttpPost("comment/{videoPostId}")]
-        public async Task<IActionResult> AddVideoPostComment(Guid videoPostId, string userId, string commentText)
+        public async Task<IActionResult> AddVideoPostComment(Guid videoPostId, string userEmail, string commentText)
         {
-            var result = await _commentService.AddVideoPostCommentAsync(videoPostId, userId, commentText);
+            var result = await _commentService.AddVideoPostCommentAsync(videoPostId, userEmail, commentText);
 
             if (result)
                 return Ok();
@@ -28,11 +28,11 @@ namespace VideoPortal.API.Controllers
 
 
         [HttpGet("comments")]
-        public async Task<IActionResult> GetUserComments(string userId)
+        public async Task<IActionResult> GetUserComments(string userEmail)
         {
             try
             {
-                var likes = await _commentService.GetCommentsByUserAsync(userId);
+                var likes = await _commentService.GetCommentsByUserAsync(userEmail);
                 return Ok(likes);
             }
             catch (Exception)
@@ -42,16 +42,17 @@ namespace VideoPortal.API.Controllers
         }
 
 
-        [HttpDelete("comment/{videoPostId}")]
-        public async Task<IActionResult> DeleteVideoPostComment(Guid videoPostId, string userId)
+        [HttpDelete("delete-comment/{videoPostId}")]
+        public async Task<IActionResult> DeleteVideoPostComment(Guid videoPostId, string userEmail)
         {
 
-            var result = await _commentService.DeleteVideoPostCommentAsync(videoPostId, userId);
+            var result = await _commentService.DeleteVideoPostCommentAsync(videoPostId, userEmail);
 
             if (result)
                 return Ok();
 
             return BadRequest("The comment does not exist.");
         }
+
     }
 }

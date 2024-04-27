@@ -18,12 +18,12 @@ namespace VideoPortal.API.Repositories.VideoPostCommentRepository
 
         }
 
-        public async Task<bool> AddVideoPostCommentAsync(Guid videoPostId, string userId, string commentText)
+        public async Task<bool> AddVideoPostCommentAsync(Guid videoPostId, string userEmail, string commentText)
         {
             var newComment = new VideoPostComment
             {
                 VideoPostId = videoPostId,
-                UserId = userId,
+                UserEmail = userEmail,
                 CommentText = commentText,
                 CommentedAt = DateTime.UtcNow
             };
@@ -33,28 +33,27 @@ namespace VideoPortal.API.Repositories.VideoPostCommentRepository
             return true;
         }
 
-        public async Task<List<VideoPostCommentDto>> GetCommentsByUserAsync(string userId)
+        public async Task<List<VideoPostCommentDto>> GetCommentsByUserAsync(string userEmail)
         {
             var comments = await _context.VideoPostComments
                 .Include(c => c.VideoPost) 
-                .Where(c => c.UserId == userId)
+                .Where(c => c.UserEmail == userEmail)
                 .Select(c => new VideoPostCommentDto
                 {
                     CommentId = c.Id,
                     CommentText = c.CommentText,
                     CommentedAt = c.CommentedAt,
-                    VideoPostName = c.VideoPost.Title,
-                    VideoUrl = c.VideoPost.VideoUrl
+                    VideoPostName = c.VideoPost.Title
                 })
                 .ToListAsync();
 
             return comments;
         }
 
-        public async Task<bool> DeleteVideoPostCommentAsync(Guid videoPostId, string userId)
+        public async Task<bool> DeleteVideoPostCommentAsync(Guid videoPostId, string userEmail)
         {
             var existingComment = await _context.VideoPostComments
-                .FirstOrDefaultAsync(l => l.VideoPostId == videoPostId && l.UserId == userId);
+                .FirstOrDefaultAsync(l => l.VideoPostId == videoPostId && l.UserEmail == userEmail);
 
             if (existingComment != null)
             {
@@ -64,6 +63,6 @@ namespace VideoPortal.API.Repositories.VideoPostCommentRepository
             }
 
             return false; // Comment not found
-        } 
+        }
     }
 }
