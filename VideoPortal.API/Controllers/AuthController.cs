@@ -26,23 +26,27 @@ namespace VideoPortal.API.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
         {
-            // Check Email
-            var identityUser = await userManager.FindByEmailAsync(request.Email);
+            // Retrieve user from dbo.AspNetUsers based on email
+            var user = await userManager.FindByEmailAsync(request.Email);
 
-            if (identityUser is not null)
+            if (user != null)
             {
                 // Check Password
-                var checkPasswordResult = await userManager.CheckPasswordAsync(identityUser, request.Password);
+                var checkPasswordResult = await userManager.CheckPasswordAsync(user, request.Password);
 
                 if (checkPasswordResult)
                 {
-                    var roles = await userManager.GetRolesAsync(identityUser);
+                    var roles = await userManager.GetRolesAsync(user);
+
+                    // Get user ID from dbo.AspNetUsers
+                    var userId = user.Id;
 
                     // Create a Token and Response
-                    var jwtToken = tokenService.CreateJwtToken(identityUser, roles.ToList());
+                    var jwtToken = tokenService.CreateJwtToken(user, roles.ToList());
 
                     var response = new LoginResponseDto()
                     {
+                        UserId = userId, 
                         Email = request.Email,
                         Roles = roles.ToList(),
                         Token = jwtToken
@@ -52,7 +56,6 @@ namespace VideoPortal.API.Controllers
                 }
             }
             ModelState.AddModelError("", "Email or Password Incorrect");
-
 
             return ValidationProblem(ModelState);
         }

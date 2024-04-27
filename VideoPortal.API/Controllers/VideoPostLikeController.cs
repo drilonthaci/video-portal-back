@@ -17,13 +17,14 @@ namespace VideoPortal.API.Controllers
             _likeService = likeService;
         }
 
+        
         [HttpPost("like/{videoPostId}")]
-        public async Task<IActionResult> LikeVideoPost(Guid videoPostId,  string userEmail)
+        public async Task<IActionResult> LikeVideoPost(Guid videoPostId,  string userId)
         {
-            if (string.IsNullOrEmpty(userEmail))
-                return BadRequest("User email is required.");
+            if (string.IsNullOrEmpty(userId))
+                return BadRequest("User id is required.");
 
-            var result = await _likeService.LikeVideoPostAsync(videoPostId, userEmail);
+            var result = await _likeService.LikeVideoPostAsync(videoPostId, userId);
 
             if (result)
                 return Ok();
@@ -33,11 +34,11 @@ namespace VideoPortal.API.Controllers
 
 
         [HttpGet("likes")]
-        public async Task<IActionResult> GetUserLikes(string userEmail)
+        public async Task<IActionResult> GetUserLikes(string userId)
         {
             try
             {
-                var likes = await _likeService.GetLikesByUserAsync(userEmail);
+                var likes = await _likeService.GetLikesByUserAsync(userId);
                 return Ok(likes);
             }
             catch (Exception)
@@ -48,20 +49,16 @@ namespace VideoPortal.API.Controllers
 
 
         [HttpDelete("unlike/{videoPostId}")]
-        public async Task<IActionResult> UnlikeVideoPost(Guid videoPostId, string userEmail)
+         public async Task<IActionResult> UnlikeVideoPost(Guid videoPostId, string userId)
         {
-            if (string.IsNullOrEmpty(userEmail))
+            if (string.IsNullOrEmpty(userId))
                 return BadRequest("User email is required.");
-
-            var result = await _likeService.UnlikeVideoPostAsync(videoPostId, userEmail);
+            
+            var result = await _likeService.UnlikeVideoPostAsync(videoPostId, userId);
 
             if (result)
                 return Ok();
-
             return BadRequest("User has not liked this post.");
         }
-
-
-
     }
 }

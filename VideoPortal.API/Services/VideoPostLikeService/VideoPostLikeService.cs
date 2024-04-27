@@ -12,20 +12,21 @@ namespace VideoPortal.API.Services.VideoPostLikeService
             _likeRepository = likeRepository;
         }
 
-        public async Task<bool> LikeVideoPostAsync(Guid videoPostId, string userEmail)
+        public async Task<bool> LikeVideoPostAsync(Guid videoPostId, string userId)
         {
-            return await _likeRepository.LikeVideoPostAsync(videoPostId, userEmail);
+            return await _likeRepository.LikeVideoPostAsync(videoPostId, userId);
         }
 
-        public async Task<IEnumerable<UserLikeDto>> GetLikesByUserAsync(string userEmail)
+        public async Task<IEnumerable<UserLikeDto>> GetLikesByUserAsync(string userId)
         {
-            return await _likeRepository.GetLikesByUserAsync(userEmail);
+            return await _likeRepository.GetLikesByUserAsync(userId);
         }
+
         public async Task<bool> UnlikeVideoPostAsync(Guid videoPostId, string userEmail)
         {
             return await _likeRepository.UnlikeVideoPostAsync(videoPostId, userEmail);
         }
-
+     
 
     }
 }

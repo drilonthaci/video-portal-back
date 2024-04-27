@@ -99,17 +99,11 @@ namespace VideoPortal.API.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VideoPostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_VideoLikes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_VideoLikes_IdentityUser_UserId",
-                        column: x => x.UserId,
-                        principalTable: "IdentityUser",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_VideoLikes_VideoPosts_VideoPostId",
                         column: x => x.VideoPostId,
@@ -149,11 +143,6 @@ namespace VideoPortal.API.Migrations
                 name: "IX_CategoryVideoPost_VideoPostsId",
                 table: "CategoryVideoPost",
                 column: "VideoPostsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VideoLikes_UserId",
-                table: "VideoLikes",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_VideoLikes_VideoPostId",

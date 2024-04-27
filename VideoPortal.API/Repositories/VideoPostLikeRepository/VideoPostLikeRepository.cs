@@ -17,21 +17,29 @@ namespace VideoPortal.API.Repositories.VideoPostLikeRepository
         public VideoPostLikeRepository(AppDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
-            _userManager = userManager;
+           _userManager = userManager;
 
         }
-
-        public async Task<bool> LikeVideoPostAsync(Guid videoPostId, string userEmail)
+   
+        public async Task<bool> LikeVideoPostAsync(Guid videoPostId, string userId)
         {
+           // Check if the user exists
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return false;
+            }
+
+            // Check if the user has already liked this post
             var existingLike = await _context.VideoLikes
-                .FirstOrDefaultAsync(l => l.VideoPostId == videoPostId && l.UserEmail == userEmail);
+                .FirstOrDefaultAsync(l => l.VideoPostId == videoPostId && l.UserId == userId);
 
             if (existingLike == null)
             {
                 var newLike = new VideoPostLike
                 {
                     VideoPostId = videoPostId,
-                    UserEmail = userEmail
+                    UserId = userId 
                 };
 
                 _context.VideoLikes.Add(newLike);
@@ -42,23 +50,24 @@ namespace VideoPortal.API.Repositories.VideoPostLikeRepository
             return false; // User has already liked this post
         }
 
-        public async Task<IEnumerable<UserLikeDto>> GetLikesByUserAsync(string userEmail)
+
+        public async Task<IEnumerable<UserLikeDto>> GetLikesByUserAsync(string userId)
         {
             return await _context.VideoLikes
-                .Where(vl => vl.UserEmail == userEmail)
+                .Where(vl => vl.UserId == userId) 
                 .Select(vl => new UserLikeDto
                 {
                     VideoPostId = vl.VideoPostId,
-                    VideoPostName = vl.VideoPost.Title 
+                    VideoPostName = vl.VideoPost.Title,
+                    VideoUrl = vl.VideoPost.VideoUrl
                 })
                 .ToListAsync();
         }
 
-
-        public async Task<bool> UnlikeVideoPostAsync(Guid videoPostId, string userEmail)
+        public async Task<bool> UnlikeVideoPostAsync(Guid videoPostId, string userId)
         {
             var existingLike = await _context.VideoLikes
-                .FirstOrDefaultAsync(l => l.VideoPostId == videoPostId && l.UserEmail == userEmail);
+                .FirstOrDefaultAsync(l => l.VideoPostId == videoPostId && l.UserId == userId);
 
             if (existingLike != null)
             {
@@ -69,5 +78,7 @@ namespace VideoPortal.API.Repositories.VideoPostLikeRepository
 
             return false; // Like not found
         }
+
+
     }
 }

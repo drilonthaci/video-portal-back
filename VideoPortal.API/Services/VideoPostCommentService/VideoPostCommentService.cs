@@ -12,7 +12,6 @@ namespace VideoPortal.API.Services.VideoPostCommentService
         {
             _commentRepository = commentRepository;
         }
-
         public async Task<bool> AddVideoPostCommentAsync(Guid videoPostId, string userEmail, string commentText)
         {
             return await _commentRepository.AddVideoPostCommentAsync(videoPostId, userEmail, commentText);
@@ -27,7 +26,6 @@ namespace VideoPortal.API.Services.VideoPostCommentService
         {
             return await _commentRepository.DeleteVideoPostCommentAsync(videoPostId, userEmail);
         }
-
 
     }
 }

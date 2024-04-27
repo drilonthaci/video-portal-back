@@ -43,7 +43,7 @@ namespace VideoPortal.API.Controllers
 
         // POST: /api/videoposts
         [HttpPost]
-        [Authorize(Roles = "Creator")]
+      //  [Authorize(Roles = "Creator")]
         public async Task<IActionResult> AddVideoPost([FromBody] CreateVideoPostRequestDto request)
         {
             var videoPost = new VideoPost
