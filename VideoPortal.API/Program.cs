@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text.Json.Serialization;
 using VideoPortal.API.Data;
 using VideoPortal.API.Data.Repositories.VideoPostRepo;
 using VideoPortal.API.Repositories.VideoPostCommentRepository;
