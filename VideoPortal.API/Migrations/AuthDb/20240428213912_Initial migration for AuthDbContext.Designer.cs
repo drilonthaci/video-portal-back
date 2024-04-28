@@ -12,7 +12,7 @@ using VideoPortal.API.Data;
 namespace VideoPortal.API.Migrations.AuthDb
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20240427175043_Initial migration for AuthDbContext")]
+    [Migration("20240428213912_Initial migration for AuthDbContext")]
     partial class InitialmigrationforAuthDbContext
     {
         /// <inheritdoc />
@@ -162,15 +162,15 @@ namespace VideoPortal.API.Migrations.AuthDb
                         {
                             Id = "52b8ecd4-70db-48e1-9f30-75319625d923",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2ebc37e6-b17a-483d-94db-285fee419194",
+                            ConcurrencyStamp = "5a48a932-4cf4-4841-85df-851369f843c4",
                             Email = "admin@life.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LIFE.COM",
                             NormalizedUserName = "LIFE",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOZYY7nLoDeBecFKbDU75pJlifxYI59dMmiQUr9jGhHaqfEym2ZV10iPJI7Wzr0oVw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDRGSpH53Oj70kZer1z2kqU1JZ3QEV/3AL0toLqXrBPQmqF5DcL+d7cwhIX3G/lkBQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "02076bfc-13e2-4695-95ce-1f9c677fe3fa",
+                            SecurityStamp = "85a36338-8634-45aa-8c51-34cada1980db",
                             TwoFactorEnabled = false,
                             UserName = "life"
                         });

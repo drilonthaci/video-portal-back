@@ -12,7 +12,7 @@ using VideoPortal.API.Data;
 namespace VideoPortal.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240427175007_Initial migration for AppDbContext")]
+    [Migration("20240428213849_Initial migration for AppDbContext")]
     partial class InitialmigrationforAppDbContext
     {
         /// <inheritdoc />
@@ -121,16 +121,9 @@ namespace VideoPortal.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsVisible")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime2");

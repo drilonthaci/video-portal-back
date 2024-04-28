@@ -51,12 +51,10 @@ namespace VideoPortal.API.Controllers
 
                 Title = request.Title,
                 ShortDescription = request.ShortDescription,
-                Content = request.Content,
                 ImageUrl = request.ImageUrl,
                 VideoUrl = request.VideoUrl,
                 PublishedDate = request.PublishedDate,
                 Publisher = request.Publisher,
-                IsVisible = request.IsVisible,
                 Categories = new List<Category>()
             };
 
@@ -76,12 +74,10 @@ namespace VideoPortal.API.Controllers
                 Id = videoPost.Id,
                 Title = videoPost.Title,
                 ShortDescription = videoPost.ShortDescription,
-                Content = videoPost.Content,
                 ImageUrl = videoPost.ImageUrl,
                 VideoUrl = videoPost.VideoUrl,
                 PublishedDate = videoPost.PublishedDate,
                 Publisher = videoPost.Publisher,
-                IsVisible = videoPost.IsVisible,
                 Categories = videoPost.Categories.Select(x => new CreateCategoryResponseDto
                 {
                     Id = x.Id,
@@ -112,12 +108,10 @@ namespace VideoPortal.API.Controllers
                 Id = videoPost.Id,
                 Title = videoPost.Title,
                 ShortDescription = videoPost.ShortDescription,
-                Content = videoPost.Content,
                 ImageUrl = videoPost.ImageUrl,
                 VideoUrl = videoPost.VideoUrl,
                 PublishedDate = videoPost.PublishedDate,
                 Publisher = videoPost.Publisher,
-                IsVisible = videoPost.IsVisible,
                 Categories = videoPost.Categories?.Select(category => new CreateCategoryResponseDto
                 {
                     Id = category.Id,
@@ -147,12 +141,10 @@ namespace VideoPortal.API.Controllers
                 Id = videoPost.Id,
                 Title = videoPost.Title,
                 ShortDescription = videoPost.ShortDescription,
-                Content = videoPost.Content,
                 ImageUrl = videoPost.ImageUrl,
                 VideoUrl = videoPost.VideoUrl,
                 PublishedDate = videoPost.PublishedDate,
                 Publisher = videoPost.Publisher,
-                IsVisible = videoPost.IsVisible,
                 Categories = videoPost.Categories?.Select(x => new CreateCategoryResponseDto
                 {
                     Id = x.Id,
@@ -187,12 +179,10 @@ namespace VideoPortal.API.Controllers
                 Id = id,
                 Title = request.Title,
                 ShortDescription = request.ShortDescription,
-                Content = request.Content,
                 ImageUrl = request.ImageUrl,
                 VideoUrl = request.VideoUrl,
                 PublishedDate = request.PublishedDate,
                 Publisher = request.Publisher,
-                IsVisible = request.IsVisible,
                 Categories = new List<Category>()
             };
 
@@ -214,12 +204,10 @@ namespace VideoPortal.API.Controllers
                 Id = videoPost.Id,
                 Title = videoPost.Title,
                 ShortDescription = videoPost.ShortDescription,
-                Content = videoPost.Content,
                 ImageUrl = videoPost.ImageUrl,
                 VideoUrl = videoPost.VideoUrl,
                 PublishedDate = videoPost.PublishedDate,
                 Publisher = videoPost.Publisher,
-                IsVisible = videoPost.IsVisible,
                 Categories = videoPost.Categories.Select(x => new CreateCategoryResponseDto
                 {
                     Id = x.Id,
