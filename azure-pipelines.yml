@@ -11,7 +11,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'videoportal-api-dockerhub'
-  imageRepository: 'videoportal-api'
+  imageRepository: 'videoportalapi'
   containerRegistry: 'videoportalapi.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/VideoPortal.API/Dockerfile'
   tag: '$(Build.BuildId)'
