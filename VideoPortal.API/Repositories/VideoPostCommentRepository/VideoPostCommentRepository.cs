@@ -33,6 +33,7 @@ namespace VideoPortal.API.Repositories.VideoPostCommentRepository
             return true;
         }
 
+        // Method to retrieve comments by user
         public async Task<List<VideoPostCommentDto>> GetCommentsByUserAsync(string userEmail)
         {
             var comments = await _context.VideoPostComments

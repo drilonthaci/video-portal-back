@@ -9,6 +9,7 @@ namespace VideoPortal.API.Data.Repositories.CategoryRepository
 
         public CategoryRepository(AppDbContext context) : base(context){}
 
+        // Get a category by ID with its associated video posts
         public async Task<Category> GetCategoryByIdWithVideoPostsAsync(Guid id)
         {
             return await _context.Categories

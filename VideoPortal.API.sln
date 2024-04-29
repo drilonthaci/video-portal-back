@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoPortal.API", "VideoPortal.API\VideoPortal.API.csproj", "{1377C465-5385-4FF0-B889-C98A06906907}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VideoPortal.API", "VideoPortal.API\VideoPortal.API.csproj", "{1377C465-5385-4FF0-B889-C98A06906907}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoPortal-UnitTesting", "VideoPortal-UnitTesting\VideoPortal-UnitTesting.csproj", "{5B6166E2-7B56-46E4-A453-194E9BA54F6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1377C465-5385-4FF0-B889-C98A06906907}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1377C465-5385-4FF0-B889-C98A06906907}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1377C465-5385-4FF0-B889-C98A06906907}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B6166E2-7B56-46E4-A453-194E9BA54F6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B6166E2-7B56-46E4-A453-194E9BA54F6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B6166E2-7B56-46E4-A453-194E9BA54F6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B6166E2-7B56-46E4-A453-194E9BA54F6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
